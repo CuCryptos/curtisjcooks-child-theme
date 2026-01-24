@@ -949,3 +949,258 @@ add_shortcode('ohana_signup', function($atts) {
     </script>
 HTML;
 });
+
+/* =============================================
+   Site Images Helper Functions
+   ============================================= */
+
+/**
+ * Get site image URL by filename (without extension)
+ * Images should be uploaded to Media Library with matching titles
+ */
+function curtisjcooks_get_site_image($image_name) {
+    $title_map = [
+        'homepage-hero' => 'Homepage Hero - Hawaiian Feast',
+        'homepage-about-section' => 'About Section - Hawaiian Ingredients',
+        'homepage-features-banner' => 'Features Banner - Plate Lunch',
+        'gallery-poke-bowl' => 'Hawaiian Poke Bowl',
+        'gallery-spam-musubi' => 'Spam Musubi',
+        'gallery-mai-tai' => 'Mai Tai Cocktail',
+        'gallery-haupia' => 'Haupia Coconut Pudding',
+        'gallery-plate-lunch' => 'Hawaiian Plate Lunch',
+        'gallery-mochiko-chicken' => 'Mochiko Chicken',
+        'gallery-loco-moco' => 'Loco Moco',
+        'gallery-malasadas' => 'Malasadas',
+        'category-header-breakfast' => 'Category - Hawaiian Breakfast',
+        'category-header-comfort' => 'Category - Island Comfort',
+        'category-header-drinks' => 'Category - Island Drinks',
+        'category-header-treats' => 'Category - Tropical Treats',
+        'category-header-seafood' => 'Category - Poke & Seafood',
+        'category-header-snacks' => 'Category - Pupus & Snacks',
+        'category-header-quick' => 'Category - Quick & Easy',
+        'author-photo-curtis' => 'Curtis J - Author Photo',
+        'og-social-share' => 'Social Share Image',
+        'newsletter-background' => 'Newsletter Background',
+        '404-page-image' => '404 Page Image',
+        'loading-placeholder' => 'Loading Placeholder',
+    ];
+
+    $title = isset($title_map[$image_name]) ? $title_map[$image_name] : $image_name;
+
+    $attachment = get_posts([
+        'post_type' => 'attachment',
+        'title' => $title,
+        'posts_per_page' => 1,
+    ]);
+
+    if (!empty($attachment)) {
+        return wp_get_attachment_url($attachment[0]->ID);
+    }
+
+    // Fallback: try by filename
+    $attachments = get_posts([
+        'post_type' => 'attachment',
+        'posts_per_page' => 1,
+        'meta_query' => [
+            [
+                'key' => '_wp_attached_file',
+                'value' => $image_name,
+                'compare' => 'LIKE',
+            ],
+        ],
+    ]);
+
+    if (!empty($attachments)) {
+        return wp_get_attachment_url($attachments[0]->ID);
+    }
+
+    return false;
+}
+
+/**
+ * Get category header image based on category slug
+ */
+function curtisjcooks_get_category_header_image($category_slug = null) {
+    if (!$category_slug && is_category()) {
+        $category_slug = get_queried_object()->slug;
+    }
+
+    $category_map = [
+        'hawaiian-breakfast' => 'category-header-breakfast',
+        'island-comfort' => 'category-header-comfort',
+        'island-drinks' => 'category-header-drinks',
+        'tropical-treats' => 'category-header-treats',
+        'poke-seafood' => 'category-header-seafood',
+        'poke-and-seafood' => 'category-header-seafood',
+        'pupus-snacks' => 'category-header-snacks',
+        'quick-easy' => 'category-header-quick',
+    ];
+
+    $image_name = isset($category_map[$category_slug]) ? $category_map[$category_slug] : null;
+
+    if ($image_name) {
+        return curtisjcooks_get_site_image($image_name);
+    }
+
+    return false;
+}
+
+/* =============================================
+   Custom 404 Page
+   ============================================= */
+
+/**
+ * Add 404 page styles
+ */
+add_action('wp_head', function() {
+    if (!is_404()) return;
+    ?>
+    <style>
+    .error-404-content {
+        text-align: center;
+        padding: 60px 20px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .error-404-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin-bottom: 30px;
+    }
+    .error-404-content h2 {
+        color: var(--volcanic-black, #1a1a2e);
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+    .error-404-content p {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .button-404 {
+        display: inline-block;
+        background: var(--sunset-orange, #e07c24);
+        color: white !important;
+        padding: 12px 30px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.3s ease;
+    }
+    .button-404:hover {
+        background: var(--ocean-deep, #006994);
+    }
+    </style>
+    <?php
+});
+
+/* =============================================
+   Newsletter Hero Section Styles
+   ============================================= */
+
+/**
+ * Add newsletter hero styles
+ */
+add_action('wp_head', function() {
+    ?>
+    <style>
+    .ohana-signup-hero {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 40px 0;
+    }
+    .ohana-signup-hero-overlay {
+        background: linear-gradient(135deg, rgba(0, 105, 148, 0.9), rgba(224, 124, 36, 0.85));
+        padding: 60px 40px;
+    }
+    .ohana-signup-hero-content {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        color: white;
+    }
+    .ohana-signup-hero-content h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 36px;
+        margin-bottom: 15px;
+        color: white;
+    }
+    .ohana-signup-hero-content p {
+        font-size: 18px;
+        margin-bottom: 25px;
+        opacity: 0.95;
+    }
+    .ohana-signup-hero .ohana-form-group {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .ohana-signup-hero input[type="email"] {
+        padding: 14px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        min-width: 280px;
+    }
+    .ohana-signup-hero button {
+        padding: 14px 30px;
+        background: var(--volcanic-black, #1a1a2e);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    .ohana-signup-hero button:hover {
+        transform: scale(1.05);
+    }
+    </style>
+    <?php
+});
+
+/**
+ * Newsletter hero shortcode with background image
+ * Use: [ohana_signup_hero]
+ */
+add_shortcode('ohana_signup_hero', function($atts) {
+    $atts = shortcode_atts([
+        'action' => '#',
+        'headline' => 'Join the Ohana',
+        'subtext' => 'Get authentic Hawaiian recipes & island stories delivered to your inbox.',
+        'button_text' => 'Send Me Recipes',
+        'placeholder' => 'Enter your email',
+    ], $atts);
+
+    $bg_image = curtisjcooks_get_site_image('newsletter-background');
+    $bg_style = $bg_image ? 'background-image: url(' . esc_url($bg_image) . ');' : '';
+
+    $action = esc_url($atts['action']);
+    $headline = esc_html($atts['headline']);
+    $subtext = esc_html($atts['subtext']);
+    $button_text = esc_html($atts['button_text']);
+    $placeholder = esc_attr($atts['placeholder']);
+
+    return <<<HTML
+    <div class="ohana-signup-hero" style="{$bg_style}">
+        <div class="ohana-signup-hero-overlay">
+            <div class="ohana-signup-hero-content">
+                <h3>{$headline}</h3>
+                <p>{$subtext}</p>
+                <form class="ohana-signup-form" action="{$action}" method="post">
+                    <div class="ohana-form-group">
+                        <input type="email" name="email" placeholder="{$placeholder}" required>
+                        <button type="submit">{$button_text}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+HTML;
+});

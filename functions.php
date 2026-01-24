@@ -1204,3 +1204,170 @@ add_shortcode('ohana_signup_hero', function($atts) {
     </div>
 HTML;
 });
+
+/**
+ * Homepage Hero Section Shortcode
+ * Use: [curtisjcooks_hero]
+ */
+add_shortcode('curtisjcooks_hero', function($atts) {
+    $atts = shortcode_atts([
+        'headline' => 'Taste the Aloha Spirit',
+        'subheadline' => 'Authentic Hawaiian recipes bringing island flavors to your kitchen',
+        'button_text' => 'Explore Recipes',
+        'button_url' => '/recipes/',
+    ], $atts);
+
+    $bg_image = curtisjcooks_get_site_image('homepage-hero');
+    $bg_style = $bg_image ? "background-image: url('" . esc_url($bg_image) . "');" : '';
+
+    return <<<HTML
+    <section class="cjc-hero" style="{$bg_style}">
+        <div class="cjc-hero-overlay">
+            <div class="cjc-hero-content">
+                <h1>{$atts['headline']}</h1>
+                <p class="cjc-hero-subheadline">{$atts['subheadline']}</p>
+                <a href="{$atts['button_url']}" class="cjc-hero-button">{$atts['button_text']}</a>
+            </div>
+        </div>
+    </section>
+HTML;
+});
+
+/**
+ * About Section Shortcode
+ * Use: [curtisjcooks_about]
+ */
+add_shortcode('curtisjcooks_about', function($atts) {
+    $atts = shortcode_atts([
+        'headline' => 'Aloha, I\'m Curtis',
+        'text' => 'Growing up in Hawaii, I learned that food is more than sustenance—it\'s how we share love, celebrate traditions, and connect with our roots. Through these recipes, I hope to bring a taste of the islands into your home.',
+        'button_text' => 'My Story',
+        'button_url' => '/about/',
+    ], $atts);
+
+    $image_url = curtisjcooks_get_site_image('homepage-about-section');
+
+    return <<<HTML
+    <section class="cjc-about">
+        <div class="cjc-about-container">
+            <div class="cjc-about-image">
+                <img src="{$image_url}" alt="Hawaiian ingredients and cooking">
+            </div>
+            <div class="cjc-about-content">
+                <h2>{$atts['headline']}</h2>
+                <p>{$atts['text']}</p>
+                <a href="{$atts['button_url']}" class="cjc-about-button">{$atts['button_text']}</a>
+            </div>
+        </div>
+    </section>
+HTML;
+});
+
+/**
+ * Features Banner Shortcode
+ * Use: [curtisjcooks_features]
+ */
+add_shortcode('curtisjcooks_features', function($atts) {
+    $atts = shortcode_atts([
+        'headline' => 'Island-Inspired Cooking',
+        'features' => 'Authentic Recipes|Fresh Ingredients|Easy Instructions|Family Favorites',
+    ], $atts);
+
+    $bg_image = curtisjcooks_get_site_image('homepage-features-banner');
+    $bg_style = $bg_image ? "background-image: url('" . esc_url($bg_image) . "');" : '';
+    $features = explode('|', $atts['features']);
+
+    $features_html = '';
+    $icons = ['🌺', '🥥', '📝', '❤️'];
+    foreach ($features as $i => $feature) {
+        $icon = $icons[$i % count($icons)];
+        $features_html .= "<div class='cjc-feature-item'><span class='cjc-feature-icon'>{$icon}</span><span>{$feature}</span></div>";
+    }
+
+    return <<<HTML
+    <section class="cjc-features" style="{$bg_style}">
+        <div class="cjc-features-overlay">
+            <h2>{$atts['headline']}</h2>
+            <div class="cjc-features-grid">
+                {$features_html}
+            </div>
+        </div>
+    </section>
+HTML;
+});
+
+/**
+ * Recipe Gallery Shortcode
+ * Use: [curtisjcooks_gallery]
+ */
+add_shortcode('curtisjcooks_gallery', function($atts) {
+    $atts = shortcode_atts([
+        'headline' => 'Island Favorites',
+        'columns' => 4,
+    ], $atts);
+
+    $gallery_images = [
+        'gallery-poke-bowl' => ['title' => 'Poke Bowl', 'link' => '/category/poke-seafood/'],
+        'gallery-spam-musubi' => ['title' => 'Spam Musubi', 'link' => '/category/pupus-snacks/'],
+        'gallery-mai-tai' => ['title' => 'Mai Tai', 'link' => '/category/island-drinks/'],
+        'gallery-haupia' => ['title' => 'Haupia', 'link' => '/category/tropical-treats/'],
+        'gallery-plate-lunch' => ['title' => 'Plate Lunch', 'link' => '/category/island-comfort/'],
+        'gallery-mochiko-chicken' => ['title' => 'Mochiko Chicken', 'link' => '/category/island-comfort/'],
+        'gallery-loco-moco' => ['title' => 'Loco Moco', 'link' => '/category/hawaiian-breakfast/'],
+        'gallery-malasadas' => ['title' => 'Malasadas', 'link' => '/category/tropical-treats/'],
+    ];
+
+    $items_html = '';
+    foreach ($gallery_images as $key => $data) {
+        $image_url = curtisjcooks_get_site_image($key);
+        if ($image_url) {
+            $items_html .= <<<ITEM
+            <a href="{$data['link']}" class="cjc-gallery-item">
+                <img src="{$image_url}" alt="{$data['title']}">
+                <div class="cjc-gallery-overlay">
+                    <span>{$data['title']}</span>
+                </div>
+            </a>
+ITEM;
+        }
+    }
+
+    return <<<HTML
+    <section class="cjc-gallery">
+        <h2>{$atts['headline']}</h2>
+        <div class="cjc-gallery-grid columns-{$atts['columns']}">
+            {$items_html}
+        </div>
+    </section>
+HTML;
+});
+
+/**
+ * Category Header Shortcode
+ * Use: [curtisjcooks_category_header] or [curtisjcooks_category_header category="hawaiian-breakfast"]
+ */
+add_shortcode('curtisjcooks_category_header', function($atts) {
+    $atts = shortcode_atts([
+        'category' => '',
+    ], $atts);
+
+    $category_slug = $atts['category'];
+    if (empty($category_slug) && is_category()) {
+        $category_slug = get_queried_object()->slug;
+        $category_name = get_queried_object()->name;
+    } else {
+        $cat = get_category_by_slug($category_slug);
+        $category_name = $cat ? $cat->name : ucwords(str_replace('-', ' ', $category_slug));
+    }
+
+    $image_url = curtisjcooks_get_category_header_image($category_slug);
+    $bg_style = $image_url ? "background-image: url('" . esc_url($image_url) . "');" : '';
+
+    return <<<HTML
+    <section class="cjc-category-header" style="{$bg_style}">
+        <div class="cjc-category-header-overlay">
+            <h1>{$category_name}</h1>
+        </div>
+    </section>
+HTML;
+});

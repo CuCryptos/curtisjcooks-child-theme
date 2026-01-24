@@ -886,3 +886,66 @@ function suspended_flavor_render_footer() {
 //         echo suspended_flavor_render_footer();
 //     }
 // }, 5);
+
+/* =============================================
+   Email Signup Form - "Join the Ohana"
+   ============================================= */
+
+/**
+ * Hawaiian-styled email signup form shortcode.
+ * Usage: [ohana_signup] or [ohana_signup action="your-form-action-url"]
+ *
+ * For integration with email providers, replace the form action
+ * or use CSS classes to style existing forms.
+ */
+add_shortcode('ohana_signup', function($atts) {
+    $atts = shortcode_atts([
+        'action' => '#',
+        'headline' => 'Join the Ohana',
+        'subtext' => 'Get authentic Hawaiian recipes & island stories delivered to your inbox.',
+        'button_text' => 'Send Me Recipes',
+        'placeholder' => 'Enter your email',
+        'style' => 'default', // default, compact, boxed
+    ], $atts);
+
+    $action = esc_url($atts['action']);
+    $headline = esc_html($atts['headline']);
+    $subtext = esc_html($atts['subtext']);
+    $button_text = esc_html($atts['button_text']);
+    $placeholder = esc_attr($atts['placeholder']);
+    $style_class = 'ohana-signup-' . sanitize_html_class($atts['style']);
+    $form_id = 'ohana-form-' . wp_rand(1000, 9999);
+
+    return <<<HTML
+    <div class="ohana-signup {$style_class}">
+        <div class="ohana-signup-content">
+            <h3 class="ohana-signup-headline">{$headline}</h3>
+            <p class="ohana-signup-subtext">{$subtext}</p>
+            <form class="ohana-signup-form" id="{$form_id}" action="{$action}" method="post">
+                <div class="ohana-form-group">
+                    <input type="email" name="email" placeholder="{$placeholder}" required class="ohana-email-input">
+                    <button type="submit" class="ohana-submit-btn">{$button_text}</button>
+                </div>
+                <p class="ohana-privacy-note">We respect your privacy. Unsubscribe anytime.</p>
+            </form>
+            <div class="ohana-success-message" style="display: none;">
+                <span class="ohana-success-icon">🌺</span>
+                <p>Mahalo! Check your inbox</p>
+            </div>
+        </div>
+    </div>
+    <script>
+    (function() {
+        var form = document.getElementById('{$form_id}');
+        if (form && form.action === '#' || form.action === window.location.href + '#') {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var wrapper = form.closest('.ohana-signup');
+                form.style.display = 'none';
+                wrapper.querySelector('.ohana-success-message').style.display = 'block';
+            });
+        }
+    })();
+    </script>
+HTML;
+});

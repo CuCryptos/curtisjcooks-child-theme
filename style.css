@@ -18,3 +18,60 @@ Template: Divi
 .et-l--footer li:has(> a[href="/#"]:only-child) {
     display: none;
 }
+
+/* =============================================
+   Lazy-loaded image placeholders with pulse animation
+   ============================================= */
+
+@keyframes lazy-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Base placeholder styles for lazy-loaded images */
+img[loading="lazy"],
+img[data-src],
+.et_pb_image img,
+.et_pb_gallery_image img,
+.et_pb_post_main_image img,
+.et_pb_blog_grid .et_pb_image_container img {
+    background-color: #f0f0f0;
+    transition: opacity 0.3s ease;
+}
+
+/* Pulse animation while image loads */
+img[loading="lazy"]:not([src*="data:"]):not(.lazyloaded),
+img[data-src]:not(.lazyloaded),
+.et_pb_image img:not(.lazyloaded):not([src$=".jpg"]):not([src$=".png"]):not([src$=".webp"]),
+.et_pb_gallery_image img:not(.lazyloaded) {
+    animation: lazy-pulse 1.5s ease-in-out infinite;
+}
+
+/* Remove animation once image is loaded */
+img.lazyloaded,
+img[loading="lazy"][complete],
+img[data-src].lazyloaded {
+    animation: none;
+    background-color: transparent;
+}
+
+/* Ensure image containers have dimensions for placeholders */
+.et_pb_image,
+.et_pb_gallery_image,
+.et_pb_image_container {
+    min-height: 50px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Clear container background when image loads */
+.et_pb_image:has(img.lazyloaded),
+.et_pb_gallery_image:has(img.lazyloaded),
+.et_pb_image_container:has(img.lazyloaded) {
+    background-color: transparent;
+}

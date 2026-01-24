@@ -2325,3 +2325,211 @@ body #page-container {
     background: var(--color-sunset-orange) !important;
     color: #fff !important;
 }
+
+/* =============================================
+   Category Archive Headers
+   ============================================= */
+
+/* Base Category Header */
+.category-header {
+    position: relative;
+    padding: 80px 30px 100px;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.category-header-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Category Title */
+.category-header-title {
+    font-family: var(--font-heading) !important;
+    font-weight: 700 !important;
+    font-size: 3rem !important;
+    color: #fff !important;
+    margin: 0 0 20px !important;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    line-height: 1.2;
+}
+
+/* Category Description */
+.category-header-description {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.7;
+    margin: 0;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Wave SVG Divider */
+.category-wave-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 1;
+    color: var(--color-sand-warm-light);
+}
+
+.category-wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* =============================================
+   Category-Specific Gradient Backgrounds
+   ============================================= */
+
+/* Island Comfort - Warm Sand Gradient */
+.category-header-island-comfort,
+body.category-island-comfort .category-header {
+    background: linear-gradient(
+        135deg,
+        #E8C39E 0%,
+        #D4A574 25%,
+        #C4956A 50%,
+        #B8865A 75%,
+        #A67548 100%
+    );
+}
+
+.category-header-island-comfort .category-wave-divider,
+body.category-island-comfort .category-wave-divider {
+    color: var(--color-sand-warm-light);
+}
+
+/* Poke & Seafood - Subtle Blue Gradient */
+.category-header-poke-seafood,
+body.category-poke-seafood .category-header {
+    background: linear-gradient(
+        135deg,
+        #5B9AA0 0%,
+        #4A8A92 25%,
+        #3D7A85 50%,
+        #2D6A78 75%,
+        var(--color-ocean-deep) 100%
+    );
+}
+
+.category-header-poke-seafood .category-wave-divider,
+body.category-poke-seafood .category-wave-divider {
+    color: var(--color-sand-warm-light);
+}
+
+/* Tropical Treats - Soft Coral Gradient */
+.category-header-tropical-treats,
+body.category-tropical-treats .category-header {
+    background: linear-gradient(
+        135deg,
+        #FFB5A7 0%,
+        #F8A99B 25%,
+        #F09286 50%,
+        #E87B70 75%,
+        #E06B5D 100%
+    );
+}
+
+.category-header-tropical-treats .category-wave-divider,
+body.category-tropical-treats .category-wave-divider {
+    color: var(--color-sand-warm-light);
+}
+
+/* Island Drinks - Ocean Teal Gradient */
+.category-header-island-drinks,
+body.category-island-drinks .category-header {
+    background: linear-gradient(
+        135deg,
+        #48B5AA 0%,
+        #3DA59B 25%,
+        #32958C 50%,
+        #28857D 75%,
+        #1E756E 100%
+    );
+}
+
+.category-header-island-drinks .category-wave-divider,
+body.category-island-drinks .category-wave-divider {
+    color: var(--color-sand-warm-light);
+}
+
+/* Top Articles - Default Sunset Orange Gradient */
+.category-header-top-articles,
+body.category-top-articles .category-header {
+    background: linear-gradient(
+        135deg,
+        var(--color-sunset-orange-light) 0%,
+        var(--color-sunset-orange) 50%,
+        var(--color-sunset-orange-dark) 100%
+    );
+}
+
+/* Default/Fallback Category Gradient */
+.category-header {
+    background: linear-gradient(
+        135deg,
+        var(--color-sunset-orange-light) 0%,
+        var(--color-sunset-orange) 40%,
+        var(--color-ocean-deep-light) 100%
+    );
+}
+
+/* Hide default Divi archive title when using custom header */
+body.category-archive .et_pb_archive_title,
+body.category-archive .archive-title {
+    display: none;
+}
+
+/* Adjust page layout for category pages */
+body.category-archive #main-content {
+    padding-top: 0;
+}
+
+body.category-archive #left-area,
+body.category-archive .et_pb_post {
+    padding-top: 40px;
+}
+
+/* Category Header Mobile Responsive */
+@media (max-width: 980px) {
+    .category-header {
+        padding: 60px 25px 80px;
+    }
+
+    .category-header-title {
+        font-size: 2.5rem !important;
+    }
+
+    .category-header-description {
+        font-size: 1.05rem;
+    }
+
+    .category-wave-divider {
+        height: 60px;
+    }
+}
+
+@media (max-width: 600px) {
+    .category-header {
+        padding: 50px 20px 70px;
+    }
+
+    .category-header-title {
+        font-size: 2rem !important;
+    }
+
+    .category-header-description {
+        font-size: 1rem;
+    }
+
+    .category-wave-divider {
+        height: 50px;
+    }
+}

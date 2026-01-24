@@ -666,3 +666,69 @@ HTML;
 
     return $content . $related_html;
 }, 20);
+
+/* =============================================
+   Category Header Styling
+   ============================================= */
+
+/**
+ * Add category-specific body classes for styling.
+ */
+add_filter('body_class', function($classes) {
+    if (is_category()) {
+        $category = get_queried_object();
+        if ($category) {
+            $classes[] = 'category-archive';
+            $classes[] = 'category-' . $category->slug;
+        }
+    }
+    return $classes;
+});
+
+/**
+ * Custom category header with wave divider.
+ * Hook into the archive title area.
+ */
+add_action('get_header', function() {
+    if (is_category()) {
+        add_filter('get_the_archive_title', 'suspended_flavor_category_header', 10, 1);
+    }
+});
+
+/**
+ * Generate custom category header HTML.
+ */
+function suspended_flavor_category_header($title) {
+    $category = get_queried_object();
+    if (!$category) {
+        return $title;
+    }
+
+    $cat_name = esc_html($category->name);
+    $cat_description = $category->description ? '<p class="category-header-description">' . esc_html($category->description) . '</p>' : '';
+    $cat_slug = $category->slug;
+
+    // Wave SVG divider
+    $wave_svg = '<div class="category-wave-divider">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path fill="currentColor" fill-opacity="0.15" d="M0,40 C150,80 350,0 500,40 C650,80 800,20 1000,50 C1200,80 1350,30 1440,50 L1440,100 L0,100 Z"></path>
+            <path fill="currentColor" fill-opacity="0.3" d="M0,60 C200,20 400,80 600,50 C800,20 1000,70 1200,40 C1350,20 1400,50 1440,40 L1440,100 L0,100 Z"></path>
+        </svg>
+    </div>';
+
+    $header_html = sprintf(
+        '<div class="category-header category-header-%s">
+            <div class="category-header-content">
+                <h1 class="category-header-title">%s</h1>
+                %s
+            </div>
+            %s
+        </div>',
+        $cat_slug,
+        $cat_name,
+        $cat_description,
+        $wave_svg
+    );
+
+    return $header_html;
+}

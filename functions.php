@@ -732,3 +732,149 @@ function suspended_flavor_category_header($title) {
 
     return $header_html;
 }
+
+/* =============================================
+   Custom Hawaiian Footer
+   ============================================= */
+
+/**
+ * Register custom footer widget areas.
+ */
+add_action('widgets_init', function() {
+    register_sidebar([
+        'name' => 'Hawaiian Footer - About',
+        'id' => 'hawaiian-footer-about',
+        'description' => 'Footer column 1: About section',
+        'before_widget' => '<div class="footer-widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h4 class="footer-widget-title">',
+        'after_title' => '</h4>',
+    ]);
+
+    register_sidebar([
+        'name' => 'Hawaiian Footer - Explore',
+        'id' => 'hawaiian-footer-explore',
+        'description' => 'Footer column 2: Category links',
+        'before_widget' => '<div class="footer-widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h4 class="footer-widget-title">',
+        'after_title' => '</h4>',
+    ]);
+
+    register_sidebar([
+        'name' => 'Hawaiian Footer - Connect',
+        'id' => 'hawaiian-footer-connect',
+        'description' => 'Footer column 3: Social & newsletter',
+        'before_widget' => '<div class="footer-widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h4 class="footer-widget-title">',
+        'after_title' => '</h4>',
+    ]);
+});
+
+/**
+ * Output custom Hawaiian footer.
+ * Add shortcode [hawaiian_footer] or use the action hook.
+ */
+add_shortcode('hawaiian_footer', 'suspended_flavor_render_footer');
+
+function suspended_flavor_render_footer() {
+    ob_start();
+    ?>
+    <footer class="hawaiian-footer">
+        <!-- Wave Pattern at Top -->
+        <div class="footer-wave-top">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path fill="currentColor" fill-opacity="0.3" d="M0,60 C240,120 480,0 720,60 C960,120 1200,30 1440,80 L1440,120 L0,120 Z"></path>
+                <path fill="currentColor" d="M0,90 C360,40 720,100 1080,60 C1260,40 1380,70 1440,60 L1440,120 L0,120 Z"></path>
+            </svg>
+        </div>
+
+        <div class="footer-main">
+            <div class="footer-container">
+                <!-- Column 1: About -->
+                <div class="footer-column footer-about">
+                    <?php if (is_active_sidebar('hawaiian-footer-about')) : ?>
+                        <?php dynamic_sidebar('hawaiian-footer-about'); ?>
+                    <?php else : ?>
+                        <h4 class="footer-widget-title">About Curtis J Cooks</h4>
+                        <p class="footer-bio">Sharing authentic Hawaiian recipes and island flavors from my kitchen to yours. Every dish tells a story of tradition, family, and the spirit of aloha.</p>
+                        <p class="footer-tagline">🌺 From Oahu with Aloha</p>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Column 2: Explore -->
+                <div class="footer-column footer-explore">
+                    <?php if (is_active_sidebar('hawaiian-footer-explore')) : ?>
+                        <?php dynamic_sidebar('hawaiian-footer-explore'); ?>
+                    <?php else : ?>
+                        <h4 class="footer-widget-title">Explore Recipes</h4>
+                        <ul class="footer-nav-list">
+                            <li><a href="<?php echo esc_url(get_category_link(get_cat_ID('island-comfort'))); ?>">Island Comfort</a></li>
+                            <li><a href="<?php echo esc_url(get_category_link(get_cat_ID('poke-seafood'))); ?>">Poke & Seafood</a></li>
+                            <li><a href="<?php echo esc_url(get_category_link(get_cat_ID('tropical-treats'))); ?>">Tropical Treats</a></li>
+                            <li><a href="<?php echo esc_url(get_category_link(get_cat_ID('island-drinks'))); ?>">Island Drinks</a></li>
+                            <li><a href="<?php echo esc_url(get_category_link(get_cat_ID('top-articles'))); ?>">Top Articles</a></li>
+                        </ul>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Column 3: Connect -->
+                <div class="footer-column footer-connect">
+                    <?php if (is_active_sidebar('hawaiian-footer-connect')) : ?>
+                        <?php dynamic_sidebar('hawaiian-footer-connect'); ?>
+                    <?php else : ?>
+                        <h4 class="footer-widget-title">Connect</h4>
+                        <div class="footer-social">
+                            <a href="#" class="social-icon" aria-label="Facebook">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                            </a>
+                            <a href="#" class="social-icon" aria-label="Instagram">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            </a>
+                            <a href="#" class="social-icon" aria-label="Pinterest">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+                            </a>
+                            <a href="#" class="social-icon" aria-label="YouTube">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            </a>
+                        </div>
+                        <div class="footer-newsletter">
+                            <p class="newsletter-text">Get recipes in your inbox!</p>
+                            <form class="newsletter-form" action="#" method="post">
+                                <input type="email" placeholder="Your email" required>
+                                <button type="submit">Subscribe</button>
+                            </form>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <div class="footer-container">
+                <p class="footer-copyright">
+                    © <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. Made with Aloha in Hawaii 🌴
+                </p>
+                <nav class="footer-legal">
+                    <a href="<?php echo esc_url(get_privacy_policy_url()); ?>">Privacy Policy</a>
+                    <span class="separator">|</span>
+                    <a href="#">Terms of Use</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    <?php
+    return ob_get_clean();
+}
+
+/**
+ * Auto-add footer before closing body (alternative to shortcode).
+ * Uncomment to enable automatic footer insertion.
+ */
+// add_action('wp_footer', function() {
+//     if (!is_admin()) {
+//         echo suspended_flavor_render_footer();
+//     }
+// }, 5);

@@ -2533,3 +2533,366 @@ body.category-archive .et_pb_post {
         height: 50px;
     }
 }
+
+/* =============================================
+   Hawaiian Footer
+   ============================================= */
+
+/* Main Footer Container */
+.hawaiian-footer {
+    position: relative;
+    background: var(--color-ocean-deep);
+    margin-top: 60px;
+}
+
+/* Wave Pattern at Top */
+.footer-wave-top {
+    position: absolute;
+    top: -60px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    color: var(--color-ocean-deep);
+    overflow: hidden;
+}
+
+.footer-wave-top svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Footer Main Content Area */
+.footer-main {
+    padding: 70px 0 50px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 1fr;
+    gap: 50px;
+}
+
+/* Footer Columns */
+.footer-column {
+    color: var(--color-sand-warm-light);
+}
+
+/* Widget Titles */
+.footer-widget-title,
+.hawaiian-footer h4 {
+    font-family: var(--font-heading) !important;
+    font-weight: 700 !important;
+    font-size: 1.35rem !important;
+    color: #fff !important;
+    margin: 0 0 20px !important;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+}
+
+.footer-widget-title::after,
+.hawaiian-footer h4::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--color-sunset-orange);
+}
+
+/* About Column */
+.footer-bio {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 20px;
+}
+
+.footer-tagline {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-sunset-orange-light);
+    margin: 0;
+    font-style: italic;
+}
+
+/* Explore Column - Navigation List */
+.footer-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-nav-list li {
+    margin-bottom: 12px;
+}
+
+.footer-nav-list a {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.footer-nav-list a::before {
+    content: "→";
+    margin-right: 10px;
+    color: var(--color-sunset-orange);
+    font-size: 0.85rem;
+    transition: transform 0.2s ease;
+}
+
+.footer-nav-list a:hover {
+    color: var(--color-sunset-orange-light);
+}
+
+.footer-nav-list a:hover::before {
+    transform: translateX(4px);
+}
+
+/* Connect Column - Social Icons */
+.footer-social {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: var(--color-sunset-orange);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.social-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Newsletter Form */
+.newsletter-text {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 12px;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-form input[type="email"] {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 12px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.newsletter-form input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.newsletter-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-sunset-orange);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.newsletter-form button {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 20px;
+    background: var(--color-sunset-orange);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.newsletter-form button:hover {
+    background: var(--color-sunset-orange-dark);
+}
+
+/* Footer Bottom / Copyright */
+.footer-bottom {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px 0;
+}
+
+.footer-bottom .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: none;
+    gap: 20px;
+}
+
+.footer-copyright {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.footer-legal {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.footer-legal a {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-legal a:hover {
+    color: var(--color-sunset-orange-light);
+}
+
+.footer-legal .separator {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Footer Widget Styling (for WordPress widgets) */
+.hawaiian-footer .footer-widget {
+    margin-bottom: 20px;
+}
+
+.hawaiian-footer .footer-widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hawaiian-footer .footer-widget li {
+    margin-bottom: 10px;
+}
+
+.hawaiian-footer .footer-widget a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.hawaiian-footer .footer-widget a:hover {
+    color: var(--color-sunset-orange-light);
+}
+
+/* Hide default Divi footer when using custom */
+body.custom-hawaiian-footer #main-footer {
+    display: none;
+}
+
+/* Footer Mobile Responsive */
+@media (max-width: 980px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .footer-about {
+        grid-column: 1 / -1;
+        text-align: center;
+    }
+
+    .footer-about .footer-widget-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer-wave-top {
+        top: -40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hawaiian-footer {
+        margin-top: 40px;
+    }
+
+    .footer-wave-top {
+        top: -30px;
+        height: 30px;
+    }
+
+    .footer-main {
+        padding: 50px 0 40px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 0 20px;
+    }
+
+    .footer-about,
+    .footer-explore,
+    .footer-connect {
+        text-align: center;
+    }
+
+    .footer-widget-title::after,
+    .hawaiian-footer h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer-nav-list a {
+        justify-content: center;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-form button {
+        width: 100%;
+    }
+
+    .footer-bottom .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-copyright {
+        font-size: 0.85rem;
+    }
+}

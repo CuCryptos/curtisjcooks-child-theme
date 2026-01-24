@@ -9,6 +9,15 @@ add_action('wp_enqueue_scripts', function() {
         [],
         null
     );
+
+    // Animations JavaScript
+    wp_enqueue_script(
+        'cjc-animations',
+        get_stylesheet_directory_uri() . '/js/animations.js',
+        [],
+        '1.0.0',
+        true
+    );
 });
 
 /* =============================================
@@ -1369,5 +1378,297 @@ add_shortcode('curtisjcooks_category_header', function($atts) {
             <h1>{$category_name}</h1>
         </div>
     </section>
+HTML;
+});
+
+/* =============================================
+   Enhanced Homepage Shortcodes (React Concept)
+   ============================================= */
+
+/**
+ * Floating Particles Background
+ * Use: [cjc_floating_particles]
+ */
+add_shortcode('cjc_floating_particles', function() {
+    return <<<HTML
+    <div class="cjc-floating-particles">
+        <span class="cjc-particle">🍍</span>
+        <span class="cjc-particle">🥥</span>
+        <span class="cjc-particle">🌺</span>
+        <span class="cjc-particle">🍹</span>
+        <span class="cjc-particle">🐟</span>
+        <span class="cjc-particle">🌴</span>
+    </div>
+HTML;
+});
+
+/**
+ * Enhanced Hero Section
+ * Use: [cjc_hero_enhanced]
+ */
+add_shortcode('cjc_hero_enhanced', function($atts) {
+    $atts = shortcode_atts([
+        'badge' => 'Authentic Hawaiian Recipes',
+        'headline_1' => 'Taste the',
+        'headline_2' => 'Aloha Spirit',
+        'description' => 'Bring the flavors of Hawaii to your kitchen with authentic recipes, local tips, and island-inspired cooking adventures.',
+        'button_text' => 'Explore Recipes',
+        'button_url' => '/recipes/',
+        'button_2_text' => 'Watch Videos',
+        'button_2_url' => '#',
+    ], $atts);
+
+    $hero_image = curtisjcooks_get_site_image('homepage-hero');
+
+    return <<<HTML
+    <section class="cjc-hero-enhanced">
+        <div class="cjc-hero-bg-animation"></div>
+        <div class="cjc-hero-container">
+            <div class="cjc-hero-text">
+                <div class="cjc-hero-badge">
+                    <span>🔥</span>
+                    <span>{$atts['badge']}</span>
+                </div>
+                <h1>
+                    {$atts['headline_1']}
+                    <span class="cjc-gradient-text">{$atts['headline_2']}</span>
+                </h1>
+                <p class="cjc-hero-description">{$atts['description']}</p>
+                <div class="cjc-hero-buttons">
+                    <a href="{$atts['button_url']}" class="cjc-btn-primary">{$atts['button_text']} 🌺</a>
+                    <a href="{$atts['button_2_url']}" class="cjc-btn-secondary">{$atts['button_2_text']} ▶️</a>
+                </div>
+            </div>
+            <div class="cjc-hero-image-stack">
+                <div class="cjc-hero-main-image">
+                    <img src="{$hero_image}" alt="Hawaiian Food">
+                    <div class="cjc-hero-image-overlay">
+                        <div>
+                            <p class="cjc-overlay-title">Fresh Ahi Poke</p>
+                            <p class="cjc-overlay-subtitle">Ready in 15 minutes</p>
+                        </div>
+                        <div class="cjc-stars">★★★★★</div>
+                    </div>
+                </div>
+                <div class="cjc-floating-card top-right">🍹</div>
+                <div class="cjc-floating-card bottom-left">
+                    <p class="cjc-card-number">50+</p>
+                    <p class="cjc-card-label">Recipes</p>
+                </div>
+            </div>
+        </div>
+        <div class="cjc-scroll-indicator">
+            <span>Scroll to explore</span>
+            <span>↓</span>
+        </div>
+    </section>
+HTML;
+});
+
+/**
+ * Stats Section with Animated Counters
+ * Use: [cjc_stats]
+ */
+add_shortcode('cjc_stats', function($atts) {
+    $atts = shortcode_atts([
+        'recipes' => '50',
+        'readers' => '12000',
+        'rating' => '4.9',
+    ], $atts);
+
+    return <<<HTML
+    <section class="cjc-stats-section">
+        <div class="cjc-stats-container">
+            <div class="cjc-stat-item cjc-scroll-animate">
+                <div class="cjc-stat-number" data-target="{$atts['recipes']}" data-suffix="+">0</div>
+                <div class="cjc-stat-label">Hawaiian Recipes</div>
+            </div>
+            <div class="cjc-stat-item cjc-scroll-animate" data-delay="1">
+                <div class="cjc-stat-number" data-target="{$atts['readers']}" data-suffix="+">0</div>
+                <div class="cjc-stat-label">Monthly Readers</div>
+            </div>
+            <div class="cjc-stat-item cjc-scroll-animate" data-delay="2">
+                <div class="cjc-stat-number" data-target="{$atts['rating']}" data-suffix=" ★" data-decimals="1">0</div>
+                <div class="cjc-stat-label">Average Rating</div>
+            </div>
+        </div>
+    </section>
+HTML;
+});
+
+/**
+ * Category Pills Section
+ * Use: [cjc_category_pills]
+ */
+add_shortcode('cjc_category_pills', function($atts) {
+    $atts = shortcode_atts([
+        'headline' => 'Explore by Category',
+        'subtitle' => 'Find your next favorite Hawaiian dish',
+    ], $atts);
+
+    $categories = [
+        ['id' => 'all', 'icon' => '🌺', 'name' => 'All Recipes', 'count' => 50, 'active' => true],
+        ['id' => 'hawaiian-breakfast', 'icon' => '🍳', 'name' => 'Breakfast', 'count' => 8],
+        ['id' => 'island-drinks', 'icon' => '🍹', 'name' => 'Island Drinks', 'count' => 12],
+        ['id' => 'poke-seafood', 'icon' => '🐟', 'name' => 'Poke & Seafood', 'count' => 10],
+        ['id' => 'island-comfort', 'icon' => '🍖', 'name' => 'Comfort Food', 'count' => 15],
+        ['id' => 'tropical-treats', 'icon' => '🍰', 'name' => 'Tropical Treats', 'count' => 8],
+    ];
+
+    $pills_html = '';
+    foreach ($categories as $i => $cat) {
+        $active_class = !empty($cat['active']) ? ' active' : '';
+        $link = $cat['id'] === 'all' ? '/recipes/' : '/category/' . $cat['id'] . '/';
+        $pills_html .= <<<PILL
+        <a href="{$link}" class="cjc-category-pill cjc-scroll-animate{$active_class}" data-delay="{$i}" data-category="{$cat['id']}">
+            <span class="cjc-pill-icon">{$cat['icon']}</span>
+            <div class="cjc-pill-info">
+                <span class="cjc-pill-name">{$cat['name']}</span>
+                <span class="cjc-pill-count">{$cat['count']} recipes</span>
+            </div>
+        </a>
+PILL;
+    }
+
+    return <<<HTML
+    <section class="cjc-categories-section">
+        <div class="cjc-section-header">
+            <h2>{$atts['headline']}</h2>
+            <p class="cjc-section-subtitle">{$atts['subtitle']}</p>
+        </div>
+        <div class="cjc-category-pills">
+            {$pills_html}
+        </div>
+    </section>
+HTML;
+});
+
+/**
+ * Enhanced Recipe Cards Section
+ * Use: [cjc_recipes_enhanced]
+ */
+add_shortcode('cjc_recipes_enhanced', function($atts) {
+    $atts = shortcode_atts([
+        'headline' => 'Featured Recipes',
+        'subtitle' => 'Handpicked favorites from the islands',
+        'count' => 6,
+    ], $atts);
+
+    $recipes = new WP_Query([
+        'posts_per_page' => intval($atts['count']),
+        'post_status' => 'publish',
+        'orderby' => 'date',
+        'order' => 'DESC',
+    ]);
+
+    $cards_html = '';
+    $delay = 0;
+
+    if ($recipes->have_posts()) {
+        while ($recipes->have_posts()) {
+            $recipes->the_post();
+            $image = get_the_post_thumbnail_url(get_the_ID(), 'large') ?: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600';
+            $title = get_the_title();
+            $link = get_permalink();
+            $categories = get_the_category();
+            $category = !empty($categories) ? $categories[0]->name : 'Recipe';
+            $category_slug = !empty($categories) ? $categories[0]->slug : 'recipe';
+
+            $cards_html .= <<<CARD
+            <a href="{$link}" class="cjc-recipe-card-enhanced cjc-scroll-animate" data-delay="{$delay}" data-category="{$category_slug}">
+                <div class="cjc-card-image">
+                    <img src="{$image}" alt="{$title}">
+                </div>
+                <div class="cjc-card-overlay"></div>
+                <div class="cjc-card-content">
+                    <span class="cjc-card-category">{$category}</span>
+                    <h3 class="cjc-card-title">{$title}</h3>
+                    <div class="cjc-card-meta">
+                        <span>⏱️ 20 min</span>
+                        <span>•</span>
+                        <span>View Recipe →</span>
+                    </div>
+                </div>
+            </a>
+CARD;
+            $delay++;
+        }
+        wp_reset_postdata();
+    }
+
+    return <<<HTML
+    <section class="cjc-recipes-enhanced">
+        <div class="cjc-section-header">
+            <div>
+                <h2>{$atts['headline']}</h2>
+                <p class="cjc-section-subtitle">{$atts['subtitle']}</p>
+            </div>
+            <a href="/recipes/" class="cjc-view-all-link">View All →</a>
+        </div>
+        <div class="cjc-recipes-grid-enhanced">
+            {$cards_html}
+        </div>
+    </section>
+HTML;
+});
+
+/**
+ * Enhanced Newsletter Section
+ * Use: [cjc_newsletter_enhanced]
+ */
+add_shortcode('cjc_newsletter_enhanced', function($atts) {
+    $atts = shortcode_atts([
+        'headline' => 'Join the Ohana! 🌺',
+        'subtitle' => 'Get weekly Hawaiian recipes, cooking tips, and island inspiration delivered straight to your inbox.',
+        'button_text' => 'Subscribe Free',
+        'placeholder' => 'Enter your email',
+        'note' => 'Join 12,000+ food lovers. Unsubscribe anytime.',
+        'action' => '#',
+    ], $atts);
+
+    return <<<HTML
+    <section class="cjc-newsletter-enhanced">
+        <div class="cjc-newsletter-bg">
+            <span>🌺</span>
+            <span>🍍</span>
+        </div>
+        <div class="cjc-newsletter-content cjc-scroll-animate">
+            <h2>{$atts['headline']}</h2>
+            <p class="cjc-newsletter-subtitle">{$atts['subtitle']}</p>
+            <form class="cjc-newsletter-form" action="{$atts['action']}" method="post">
+                <input type="email" name="email" placeholder="{$atts['placeholder']}" required>
+                <button type="submit">{$atts['button_text']}</button>
+            </form>
+            <p class="cjc-newsletter-note">{$atts['note']}</p>
+        </div>
+    </section>
+HTML;
+});
+
+/**
+ * Enhanced Footer
+ * Use: [cjc_footer_enhanced]
+ */
+add_shortcode('cjc_footer_enhanced', function() {
+    $year = date('Y');
+
+    return <<<HTML
+    <footer class="cjc-footer-enhanced">
+        <div class="cjc-footer-container">
+            <div class="cjc-footer-logo">
+                <span>🌺</span>
+                <span>CurtisJCooks</span>
+            </div>
+            <div class="cjc-footer-social">
+                <a href="#" class="cjc-social-icon">📸</a>
+                <a href="#" class="cjc-social-icon">📌</a>
+                <a href="#" class="cjc-social-icon">▶️</a>
+                <a href="#" class="cjc-social-icon">✉️</a>
+            </div>
+        </div>
+        <div class="cjc-footer-bottom">
+            <p>© {$year} CurtisJCooks. Made with Aloha 🌺</p>
+        </div>
+    </footer>
 HTML;
 });

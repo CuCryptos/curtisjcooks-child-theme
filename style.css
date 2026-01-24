@@ -4264,3 +4264,874 @@ body.custom-hawaiian-footer #main-footer {
         font-size: 2rem;
     }
 }
+
+/* =============================================
+   React Concept - Animations & Enhanced Styles
+   ============================================= */
+
+/* Keyframe Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes wave {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-25%); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.4); }
+    50% { box-shadow: 0 0 40px rgba(249, 115, 22, 0.8); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes countUp {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Floating Particles Container */
+.cjc-floating-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.cjc-particle {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cjc-particle:nth-child(1) { left: 10%; animation: float 15s ease-in-out 0s infinite; }
+.cjc-particle:nth-child(2) { left: 25%; animation: float 18s ease-in-out 3s infinite; }
+.cjc-particle:nth-child(3) { left: 45%; animation: float 12s ease-in-out 6s infinite; }
+.cjc-particle:nth-child(4) { left: 65%; animation: float 20s ease-in-out 2s infinite; }
+.cjc-particle:nth-child(5) { left: 80%; animation: float 16s ease-in-out 8s infinite; }
+.cjc-particle:nth-child(6) { left: 90%; animation: float 14s ease-in-out 4s infinite; }
+
+/* Scroll Animation Classes */
+.cjc-scroll-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.cjc-scroll-animate.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cjc-scroll-animate.from-left {
+    transform: translateX(-30px);
+}
+
+.cjc-scroll-animate.from-left.is-visible {
+    transform: translateX(0);
+}
+
+.cjc-scroll-animate.from-right {
+    transform: translateX(30px);
+}
+
+.cjc-scroll-animate.from-right.is-visible {
+    transform: translateX(0);
+}
+
+/* Staggered animation delays */
+.cjc-scroll-animate[data-delay="1"] { transition-delay: 0.1s; }
+.cjc-scroll-animate[data-delay="2"] { transition-delay: 0.2s; }
+.cjc-scroll-animate[data-delay="3"] { transition-delay: 0.3s; }
+.cjc-scroll-animate[data-delay="4"] { transition-delay: 0.4s; }
+.cjc-scroll-animate[data-delay="5"] { transition-delay: 0.5s; }
+.cjc-scroll-animate[data-delay="6"] { transition-delay: 0.6s; }
+
+/* Enhanced Hero Section */
+.cjc-hero-enhanced {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #fff7ed 0%, #ffffff 50%, #f0fdfa 100%);
+    overflow: hidden;
+    padding-top: 80px;
+}
+
+.cjc-hero-enhanced .cjc-hero-bg-animation {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, transparent 50%, rgba(20, 184, 166, 0.1) 100%);
+    animation: wave 10s ease-in-out infinite;
+}
+
+.cjc-hero-enhanced .cjc-hero-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.cjc-hero-enhanced .cjc-hero-text {
+    animation: fadeInLeft 1s ease forwards;
+}
+
+.cjc-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff7ed;
+    color: #ea580c;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.cjc-hero-badge span:first-child {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.cjc-hero-enhanced h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.cjc-hero-enhanced h1 .cjc-gradient-text {
+    display: block;
+    background: linear-gradient(90deg, #f97316 0%, #fb923c 50%, #14b8a6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.cjc-hero-enhanced .cjc-hero-description {
+    font-size: 1.25rem;
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 32px;
+}
+
+.cjc-hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.cjc-btn-primary {
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+    color: white !important;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.cjc-btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(249, 115, 22, 0.4);
+}
+
+.cjc-btn-secondary {
+    background: white;
+    color: #374151 !important;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    border: 2px solid #e5e7eb;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.cjc-btn-secondary:hover {
+    border-color: #fb923c;
+    color: #f97316 !important;
+    transform: scale(1.05);
+}
+
+/* Hero Image Stack */
+.cjc-hero-image-stack {
+    position: relative;
+    animation: fadeInRight 1s ease 0.3s forwards;
+    opacity: 0;
+}
+
+.cjc-hero-main-image {
+    position: relative;
+    z-index: 20;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    transition: transform 0.5s ease;
+}
+
+.cjc-hero-main-image:hover {
+    transform: scale(1.03);
+}
+
+.cjc-hero-main-image img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.cjc-hero-image-overlay {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cjc-hero-image-overlay .cjc-overlay-title {
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.cjc-hero-image-overlay .cjc-overlay-subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.cjc-hero-image-overlay .cjc-stars {
+    color: #f97316;
+    font-size: 1rem;
+}
+
+.cjc-floating-card {
+    position: absolute;
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    z-index: 30;
+}
+
+.cjc-floating-card.top-right {
+    top: -32px;
+    right: -32px;
+    font-size: 2rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.cjc-floating-card.bottom-left {
+    bottom: -16px;
+    left: -32px;
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+    color: white;
+    text-align: center;
+}
+
+.cjc-floating-card.bottom-left .cjc-card-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.cjc-floating-card.bottom-left .cjc-card-label {
+    font-size: 0.875rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Scroll Indicator */
+.cjc-scroll-indicator {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #9ca3af;
+    font-size: 0.875rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* Stats Section */
+.cjc-stats-section {
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+    padding: 64px 24px;
+}
+
+.cjc-stats-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    text-align: center;
+}
+
+.cjc-stat-item {
+    color: white;
+}
+
+.cjc-stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.8s ease;
+}
+
+.cjc-stat-number.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.cjc-stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Category Pills Section */
+.cjc-categories-section {
+    padding: 80px 24px;
+    background: white;
+}
+
+.cjc-categories-section .cjc-section-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.cjc-categories-section h2 {
+    font-size: 2.5rem;
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+
+.cjc-categories-section .cjc-section-subtitle {
+    font-size: 1.25rem;
+    color: #6b7280;
+}
+
+.cjc-category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.cjc-category-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-radius: 50px;
+    background: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-decoration: none;
+}
+
+.cjc-category-pill:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.cjc-category-pill.active {
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4);
+    transform: scale(1.05);
+}
+
+.cjc-category-pill .cjc-pill-icon {
+    font-size: 1.5rem;
+}
+
+.cjc-category-pill .cjc-pill-info {
+    text-align: left;
+}
+
+.cjc-category-pill .cjc-pill-name {
+    font-weight: 600;
+    color: #374151;
+    display: block;
+}
+
+.cjc-category-pill.active .cjc-pill-name {
+    color: white;
+}
+
+.cjc-category-pill .cjc-pill-count {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.cjc-category-pill.active .cjc-pill-count {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Enhanced Recipe Cards */
+.cjc-recipes-enhanced {
+    padding: 80px 24px;
+    background: #f9fafb;
+}
+
+.cjc-recipes-enhanced .cjc-section-header {
+    max-width: 1280px;
+    margin: 0 auto 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.cjc-recipes-enhanced h2 {
+    font-size: 2.5rem;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.cjc-recipes-enhanced .cjc-section-subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+}
+
+.cjc-view-all-link {
+    color: #f97316;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.cjc-view-all-link:hover {
+    color: #ea580c;
+}
+
+.cjc-recipes-grid-enhanced {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.cjc-recipe-card-enhanced {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+
+.cjc-recipe-card-enhanced .cjc-card-image {
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.cjc-recipe-card-enhanced img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.cjc-recipe-card-enhanced:hover img {
+    transform: scale(1.1);
+}
+
+.cjc-recipe-card-enhanced .cjc-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+    opacity: 0.7;
+    transition: opacity 0.5s ease;
+}
+
+.cjc-recipe-card-enhanced:hover .cjc-card-overlay {
+    opacity: 1;
+}
+
+.cjc-recipe-card-enhanced .cjc-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    color: white;
+}
+
+.cjc-recipe-card-enhanced .cjc-card-category {
+    display: inline-block;
+    background: #f97316;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.cjc-recipe-card-enhanced .cjc-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    transform: translateY(8px);
+    transition: transform 0.5s ease;
+}
+
+.cjc-recipe-card-enhanced:hover .cjc-card-title {
+    transform: translateY(0);
+}
+
+.cjc-recipe-card-enhanced .cjc-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.5s ease;
+}
+
+.cjc-recipe-card-enhanced:hover .cjc-card-meta {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Newsletter Section Enhanced */
+.cjc-newsletter-enhanced {
+    padding: 80px 24px;
+    background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.cjc-newsletter-enhanced .cjc-newsletter-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+}
+
+.cjc-newsletter-enhanced .cjc-newsletter-bg span {
+    position: absolute;
+    font-size: 8rem;
+}
+
+.cjc-newsletter-enhanced .cjc-newsletter-bg span:first-child {
+    top: 40px;
+    left: 40px;
+}
+
+.cjc-newsletter-enhanced .cjc-newsletter-bg span:last-child {
+    bottom: 40px;
+    right: 40px;
+}
+
+.cjc-newsletter-content {
+    max-width: 768px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.cjc-newsletter-enhanced h2 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.cjc-newsletter-enhanced .cjc-newsletter-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 32px;
+}
+
+.cjc-newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+    .cjc-newsletter-form {
+        flex-direction: row;
+    }
+}
+
+.cjc-newsletter-form input[type="email"] {
+    flex: 1;
+    padding: 16px 24px;
+    border-radius: 50px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+}
+
+.cjc-newsletter-form input[type="email"]:focus {
+    box-shadow: 0 0 0 4px rgba(251, 146, 60, 0.5);
+}
+
+.cjc-newsletter-form button {
+    background: #f97316;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cjc-newsletter-form button:hover {
+    background: #ea580c;
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cjc-newsletter-enhanced .cjc-newsletter-note {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    margin-top: 16px;
+}
+
+/* Footer Enhanced */
+.cjc-footer-enhanced {
+    background: #111827;
+    color: white;
+    padding: 64px 24px;
+}
+
+.cjc-footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+@media (min-width: 768px) {
+    .cjc-footer-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.cjc-footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.cjc-footer-logo span:first-child {
+    font-size: 2.5rem;
+}
+
+.cjc-footer-social {
+    display: flex;
+    gap: 16px;
+}
+
+.cjc-social-icon {
+    width: 48px;
+    height: 48px;
+    background: #1f2937;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.cjc-social-icon:hover {
+    background: #f97316;
+    transform: scale(1.1);
+}
+
+.cjc-footer-bottom {
+    border-top: 1px solid #374151;
+    margin-top: 32px;
+    padding-top: 32px;
+    text-align: center;
+    color: #9ca3af;
+    width: 100%;
+    max-width: 1280px;
+}
+
+/* Responsive Styles for Enhanced Components */
+@media (max-width: 1024px) {
+    .cjc-hero-enhanced .cjc-hero-container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .cjc-hero-enhanced h1 {
+        font-size: 2.75rem;
+    }
+
+    .cjc-hero-image-stack {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .cjc-floating-card.top-right {
+        top: -16px;
+        right: -16px;
+    }
+
+    .cjc-floating-card.bottom-left {
+        left: -16px;
+    }
+
+    .cjc-recipes-grid-enhanced {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .cjc-hero-enhanced {
+        padding-top: 100px;
+        min-height: auto;
+        padding-bottom: 60px;
+    }
+
+    .cjc-hero-enhanced h1 {
+        font-size: 2.25rem;
+    }
+
+    .cjc-hero-buttons {
+        flex-direction: column;
+    }
+
+    .cjc-btn-primary,
+    .cjc-btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cjc-stats-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .cjc-stat-number {
+        font-size: 2.5rem;
+    }
+
+    .cjc-category-pills {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cjc-category-pill {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .cjc-recipes-enhanced .cjc-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .cjc-recipes-grid-enhanced {
+        grid-template-columns: 1fr;
+    }
+
+    .cjc-newsletter-enhanced h2 {
+        font-size: 2rem;
+    }
+
+    .cjc-scroll-indicator {
+        display: none;
+    }
+}

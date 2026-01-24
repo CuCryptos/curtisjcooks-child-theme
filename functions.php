@@ -74,3 +74,37 @@ add_action('wp_footer', function() {
     </script>
     <?php
 }, 99);
+
+/**
+ * Recipe Search Shortcode
+ * Usage: [recipe_search] or [recipe_search placeholder="Find a recipe..."]
+ * Searches only posts in the 'recipes' category.
+ */
+add_shortcode('recipe_search', function($atts) {
+    $atts = shortcode_atts([
+        'placeholder' => 'Search recipes...',
+        'button_text' => 'Search',
+    ], $atts);
+
+    $placeholder = esc_attr($atts['placeholder']);
+    $button_text = esc_html($atts['button_text']);
+    $home_url = esc_url(home_url('/'));
+
+    return <<<HTML
+    <div class="recipe-search-widget">
+        <form role="search" method="get" action="{$home_url}" class="recipe-search-form">
+            <input type="hidden" name="category_name" value="recipes">
+            <div class="recipe-search-input-wrap">
+                <span class="recipe-search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </span>
+                <input type="search" name="s" placeholder="{$placeholder}" class="recipe-search-input" required>
+                <button type="submit" class="recipe-search-button">{$button_text}</button>
+            </div>
+        </form>
+    </div>
+HTML;
+});

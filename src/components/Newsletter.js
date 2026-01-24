@@ -2,7 +2,7 @@
  * Newsletter Signup Section
  */
 
-import { useState, useRef, useEffect } from '@wordpress/element';
+import { useState, useRef, useEffect } from 'react';
 
 export default function Newsletter() {
     const [email, setEmail] = useState('');

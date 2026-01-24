@@ -2,7 +2,7 @@
  * Featured Recipes Section
  */
 
-import { useState, useRef, useEffect } from '@wordpress/element';
+import { useState, useRef, useEffect } from 'react';
 
 function RecipeCard({ image, title, category, time, link, delay }) {
     const [isHovered, setIsHovered] = useState(false);

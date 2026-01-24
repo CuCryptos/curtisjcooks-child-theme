@@ -2,7 +2,7 @@
  * Category Pills Section
  */
 
-import { useState, useRef, useEffect } from '@wordpress/element';
+import { useState, useRef, useEffect } from 'react';
 
 function CategoryPill({ icon, name, count, link, isActive, onClick, delay }) {
     const [isVisible, setIsVisible] = useState(false);

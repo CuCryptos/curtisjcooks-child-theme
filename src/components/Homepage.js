@@ -3,7 +3,7 @@
  * Main container for all homepage sections
  */
 
-import { useState, useEffect } from '@wordpress/element';
+import React, { useState, useEffect } from 'react';
 import FloatingParticles from './FloatingParticles';
 import Hero from './Hero';
 import Stats from './Stats';

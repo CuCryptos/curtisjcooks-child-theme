@@ -2,7 +2,7 @@
  * Hero Section Component
  */
 
-import { useState, useEffect, useRef } from '@wordpress/element';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Hero({ data }) {
     const [isVisible, setIsVisible] = useState(false);

@@ -2,7 +2,7 @@
  * Stats Section with Animated Counters
  */
 
-import { useState, useEffect, useRef } from '@wordpress/element';
+import { useState, useEffect, useRef } from 'react';
 
 // Custom hook for counting animation
 function useCounter(end, duration = 2000, start = 0, decimals = 0) {

@@ -3,7 +3,8 @@
  * Entry point for the React-powered homepage
  */
 
-import { createRoot } from '@wordpress/element';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import Homepage from './components/Homepage';
 import './styles/main.css';
 

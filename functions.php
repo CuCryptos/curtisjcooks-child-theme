@@ -1,4 +1,53 @@
 <?php
+
+/* =============================================
+   Custom Logo Override
+   ============================================= */
+
+// Add custom logo CSS to replace Divi logo
+add_action('wp_head', function() {
+    ?>
+    <style>
+    /* Hide default Divi logo text and replace with CurtisJCooks */
+    #logo,
+    .logo_container #logo,
+    #main-header .logo_container #logo {
+        font-size: 0 !important;
+        visibility: hidden;
+    }
+
+    #logo::before,
+    .logo_container #logo::before {
+        content: "🌺 CurtisJCooks";
+        visibility: visible;
+        font-size: 24px !important;
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 700;
+        background: linear-gradient(135deg, #f97316, #fb923c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* If using image logo, hide it and show text */
+    .logo_container img {
+        display: none !important;
+    }
+
+    .logo_container::before {
+        content: "🌺 CurtisJCooks";
+        font-size: 24px;
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 700;
+        background: linear-gradient(135deg, #f97316, #fb923c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    </style>
+    <?php
+}, 100);
+
 add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 

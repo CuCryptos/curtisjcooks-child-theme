@@ -2,3 +2,19 @@
 Theme Name: Suspended Flavor Child
 Template: Divi
 */
+
+/* Hide placeholder footer links (href="#") until pages are created */
+#main-footer a[href="#"],
+#main-footer a[href="/#"],
+.et-l--footer a[href="#"],
+.et-l--footer a[href="/#"] {
+    display: none;
+}
+
+/* Also hide list items that only contain placeholder links */
+#main-footer li:has(> a[href="#"]:only-child),
+#main-footer li:has(> a[href="/#"]:only-child),
+.et-l--footer li:has(> a[href="#"]:only-child),
+.et-l--footer li:has(> a[href="/#"]:only-child) {
+    display: none;
+}

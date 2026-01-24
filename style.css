@@ -1220,176 +1220,211 @@ img[data-src].lazyloaded {
 }
 
 /* =============================================
-   Related Recipes Section - Horizontal Cards
+   More Island Favorites - Vertical Card Layout
    ============================================= */
 
-.related-recipes-section {
-    margin-top: 50px;
-    padding-top: 40px;
-    border-top: 2px solid #f0e6dc;
+.island-favorites-section {
+    margin-top: 60px;
+    padding-top: 50px;
+    border-top: 2px solid var(--color-sand-warm);
 }
 
-.related-recipes-title {
-    color: #5d4037;
-    font-size: 26px;
-    font-weight: 700;
+/* Section Title - Playfair Display */
+.island-favorites-title {
+    font-family: var(--font-heading) !important;
+    font-weight: 700 !important;
+    font-size: 2rem !important;
+    color: var(--color-ocean-deep) !important;
     text-align: center;
-    margin: 0 0 30px;
+    margin: 0 0 40px !important;
     position: relative;
 }
 
-.related-recipes-title::after {
+.island-favorites-title::after {
     content: "";
     display: block;
-    width: 60px;
+    width: 80px;
     height: 3px;
-    background: linear-gradient(90deg, #e07b39, #feb47b);
-    margin: 12px auto 0;
+    background: linear-gradient(90deg, var(--color-sunset-orange), var(--color-sunset-orange-light));
+    margin: 15px auto 0;
     border-radius: 2px;
 }
 
-.related-recipes-grid {
+/* Card Grid */
+.island-favorites-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+    gap: 30px;
 }
 
-.related-recipe-card {
+/* Individual Card */
+.island-favorite-card {
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.related-recipe-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(224, 123, 57, 0.2);
+.island-favorite-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(224, 123, 57, 0.2),
+                0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.related-recipe-link {
-    display: flex;
-    flex-direction: row;
+.island-favorite-link {
+    display: block;
     text-decoration: none;
     color: inherit;
-    height: 100%;
 }
 
-.related-recipe-thumbnail {
-    flex-shrink: 0;
-    width: 120px;
-    min-height: 120px;
+/* Card Thumbnail */
+.island-favorite-thumbnail {
+    position: relative;
+    aspect-ratio: 4/3;
     overflow: hidden;
-    background: linear-gradient(135deg, #fff5eb 0%, #f0f0f0 100%);
+    background: linear-gradient(135deg, var(--color-sand-warm-light) 0%, #f0f0f0 100%);
 }
 
-.related-recipe-image {
+.island-favorite-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
 }
 
-.related-recipe-card:hover .related-recipe-image {
+.island-favorite-card:hover .island-favorite-image {
     transform: scale(1.08);
 }
 
-.related-recipe-no-image {
+.island-favorite-no-image {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #fff5eb 0%, #feb47b 100%);
+    background: linear-gradient(135deg, var(--color-sand-warm) 0%, var(--color-sunset-orange-light) 100%);
 }
 
-.related-recipe-content {
-    flex: 1;
-    padding: 15px 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.related-recipe-title {
-    color: #5d4037;
-    font-size: 16px;
+/* Category Tag */
+.island-favorite-category {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
     font-weight: 600;
-    margin: 0 0 8px;
-    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: #fff;
+    background: var(--color-sunset-orange);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
 }
 
-.related-recipe-excerpt {
-    color: #8b7355;
-    font-size: 13px;
-    margin: 0 0 10px;
+.island-favorite-card:hover .island-favorite-category {
+    transform: translateY(-2px);
+}
+
+/* Category-specific tag colors */
+.island-favorite-category[data-category="island-comfort"] {
+    background: linear-gradient(135deg, #D4A574, #A67548);
+}
+
+.island-favorite-category[data-category="poke-seafood"] {
+    background: linear-gradient(135deg, #4A8A92, var(--color-ocean-deep));
+}
+
+.island-favorite-category[data-category="tropical-treats"] {
+    background: linear-gradient(135deg, #F09286, #E06B5D);
+}
+
+.island-favorite-category[data-category="island-drinks"] {
+    background: linear-gradient(135deg, #3DA59B, #1E756E);
+}
+
+/* Card Content */
+.island-favorite-content {
+    padding: 20px;
+}
+
+.island-favorite-title {
+    font-family: var(--font-body) !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    color: var(--color-ocean-deep) !important;
+    margin: 0 !important;
     line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.related-recipe-cta {
-    color: #e07b39;
-    font-size: 13px;
-    font-weight: 600;
     transition: color 0.2s ease;
 }
 
-.related-recipe-card:hover .related-recipe-cta {
-    color: #c65d1a;
+.island-favorite-card:hover .island-favorite-title {
+    color: var(--color-sunset-orange) !important;
 }
 
-/* Related Recipes - Tablet */
+/* Island Favorites - Tablet */
 @media (max-width: 980px) {
-    .related-recipes-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .island-favorites-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
 
-    .related-recipe-card:nth-child(3) {
-        grid-column: 1 / -1;
+    .island-favorite-content {
+        padding: 15px;
     }
 
-    .related-recipe-card:nth-child(3) .related-recipe-link {
-        max-width: 400px;
-        margin: 0 auto;
+    .island-favorite-title {
+        font-size: 1rem !important;
     }
 }
 
-/* Related Recipes - Mobile */
-@media (max-width: 600px) {
-    .related-recipes-section {
-        margin-top: 35px;
-        padding-top: 30px;
+/* Island Favorites - Mobile */
+@media (max-width: 768px) {
+    .island-favorites-section {
+        margin-top: 40px;
+        padding-top: 35px;
     }
 
-    .related-recipes-title {
-        font-size: 22px;
+    .island-favorites-title {
+        font-size: 1.65rem !important;
     }
 
-    .related-recipes-grid {
-        grid-template-columns: 1fr;
+    .island-favorites-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
     }
 
-    .related-recipe-card:nth-child(3) .related-recipe-link {
-        max-width: none;
+    .island-favorite-category {
+        font-size: 0.65rem;
+        padding: 5px 10px;
+        top: 10px;
+        left: 10px;
     }
 
-    .related-recipe-thumbnail {
-        width: 100px;
-        min-height: 100px;
+    .island-favorite-content {
+        padding: 12px;
     }
 
-    .related-recipe-content {
-        padding: 12px 15px;
+    .island-favorite-title {
+        font-size: 0.95rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .island-favorites-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
-    .related-recipe-title {
-        font-size: 15px;
+    .island-favorite-thumbnail {
+        aspect-ratio: 16/10;
     }
 
-    .related-recipe-excerpt {
-        font-size: 12px;
-        -webkit-line-clamp: 2;
+    .island-favorite-content {
+        padding: 15px;
+    }
+
+    .island-favorite-title {
+        font-size: 1.05rem !important;
     }
 }
 

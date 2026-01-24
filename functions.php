@@ -628,32 +628,40 @@ add_filter('the_content', function($content) {
         return $content;
     }
 
-    $related_html = '<div class="related-recipes-section">';
-    $related_html .= '<h3 class="related-recipes-title">More Hawaiian Recipes</h3>';
-    $related_html .= '<div class="related-recipes-grid">';
+    $related_html = '<section class="island-favorites-section">';
+    $related_html .= '<h3 class="island-favorites-title">More Island Favorites</h3>';
+    $related_html .= '<div class="island-favorites-grid">';
 
     while ($related_query->have_posts()) {
         $related_query->the_post();
 
-        $thumbnail = get_the_post_thumbnail(get_the_ID(), 'medium', ['class' => 'related-recipe-image']);
+        $thumbnail = get_the_post_thumbnail(get_the_ID(), 'medium_large', ['class' => 'island-favorite-image']);
         if (!$thumbnail) {
-            $thumbnail = '<div class="related-recipe-no-image"></div>';
+            $thumbnail = '<div class="island-favorite-no-image"></div>';
         }
 
         $title = esc_html(get_the_title());
         $permalink = esc_url(get_permalink());
-        $excerpt = wp_trim_words(get_the_excerpt(), 12, '...');
+
+        // Get the first Hawaiian category for this post
+        $post_categories = wp_get_post_categories(get_the_ID(), ['fields' => 'all']);
+        $category_tag = '';
+        foreach ($post_categories as $cat) {
+            if (in_array($cat->slug, $hawaiian_categories)) {
+                $category_tag = '<span class="island-favorite-category" data-category="' . esc_attr($cat->slug) . '">' . esc_html($cat->name) . '</span>';
+                break;
+            }
+        }
 
         $related_html .= <<<HTML
-        <article class="related-recipe-card">
-            <a href="{$permalink}" class="related-recipe-link">
-                <div class="related-recipe-thumbnail">
+        <article class="island-favorite-card">
+            <a href="{$permalink}" class="island-favorite-link">
+                <div class="island-favorite-thumbnail">
                     {$thumbnail}
+                    {$category_tag}
                 </div>
-                <div class="related-recipe-content">
-                    <h4 class="related-recipe-title">{$title}</h4>
-                    <p class="related-recipe-excerpt">{$excerpt}</p>
-                    <span class="related-recipe-cta">View Recipe →</span>
+                <div class="island-favorite-content">
+                    <h4 class="island-favorite-title">{$title}</h4>
                 </div>
             </a>
         </article>
@@ -662,7 +670,7 @@ HTML;
 
     wp_reset_postdata();
 
-    $related_html .= '</div></div>';
+    $related_html .= '</div></section>';
 
     return $content . $related_html;
 }, 20);

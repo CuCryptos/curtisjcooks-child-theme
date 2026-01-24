@@ -2,17 +2,27 @@
 /**
  * CurtisJCooks.com - Bulk Post Import Script
  *
- * Run this from your Local WordPress site directory:
+ * Run via browser (while logged in as admin):
+ * https://curtisjcookscom1.local/wp-content/themes/suspended-flavor-child/import-posts.php
+ *
+ * Or via WP-CLI:
  * cd ~/Local\ Sites/curtisjcookscom1/app/public
- * wp eval-file import-posts.php
+ * wp eval-file wp-content/themes/suspended-flavor-child/import-posts.php
  *
  * All posts are created as DRAFTS so you can review before publishing.
  */
 
-// Ensure we're running in WordPress context
+// Load WordPress if running via browser
 if (!defined('ABSPATH')) {
-    echo "This script must be run via WP-CLI: wp eval-file import-posts.php\n";
-    exit;
+    require_once dirname(__FILE__) . '/../../../wp-load.php';
+
+    // Only allow logged-in admins
+    if (!current_user_can('manage_options')) {
+        die('Unauthorized - you must be logged in as an administrator.');
+    }
+
+    // Output as plain text for browser
+    header('Content-Type: text/plain; charset=utf-8');
 }
 
 echo "===========================================\n";

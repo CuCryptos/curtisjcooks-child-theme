@@ -3,6 +3,130 @@ add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 });
 
+/* =============================================
+   Performance Optimizations
+   ============================================= */
+
+/**
+ * Remove WordPress emoji scripts and styles.
+ * Saves ~10KB and DNS lookup.
+ */
+add_action('init', function() {
+    remove_action('wp_head', 'print_emoji_detection_script', 7);
+    remove_action('admin_print_scripts', 'print_emoji_detection_script');
+    remove_action('wp_print_styles', 'print_emoji_styles');
+    remove_action('admin_print_styles', 'print_emoji_styles');
+    remove_filter('the_content_feed', 'wp_staticize_emoji');
+    remove_filter('comment_text_rss', 'wp_staticize_emoji');
+    remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+
+    // Remove TinyMCE emoji plugin
+    add_filter('tiny_mce_plugins', function($plugins) {
+        return is_array($plugins) ? array_diff($plugins, ['wpemoji']) : [];
+    });
+
+    // Remove emoji DNS prefetch
+    add_filter('wp_resource_hints', function($urls, $relation_type) {
+        if ($relation_type === 'dns-prefetch') {
+            $urls = array_filter($urls, function($url) {
+                return strpos($url, 'https://s.w.org/images/core/emoji/') === false;
+            });
+        }
+        return $urls;
+    }, 10, 2);
+});
+
+/**
+ * Remove other unnecessary WordPress default scripts.
+ */
+add_action('wp_enqueue_scripts', function() {
+    // Remove WordPress embed script (if not using embeds)
+    wp_deregister_script('wp-embed');
+
+    // Remove dashicons on frontend for non-logged-in users
+    if (!is_user_logged_in()) {
+        wp_deregister_style('dashicons');
+    }
+}, 100);
+
+/**
+ * Remove jQuery migrate (not needed for modern jQuery).
+ */
+add_action('wp_default_scripts', function($scripts) {
+    if (!is_admin() && isset($scripts->registered['jquery'])) {
+        $script = $scripts->registered['jquery'];
+        if ($script->deps) {
+            $script->deps = array_diff($script->deps, ['jquery-migrate']);
+        }
+    }
+});
+
+/**
+ * Add defer attribute to non-critical JavaScript.
+ * Excludes jQuery and critical scripts from deferring.
+ */
+add_filter('script_loader_tag', function($tag, $handle, $src) {
+    // Don't defer in admin or for logged-in users editing
+    if (is_admin()) {
+        return $tag;
+    }
+
+    // Scripts that should NOT be deferred (critical for page render)
+    $no_defer = [
+        'jquery-core',
+        'jquery',
+        'et-builder-modules-global-functions-script',
+        'divi-custom-script',
+    ];
+
+    if (in_array($handle, $no_defer)) {
+        return $tag;
+    }
+
+    // Don't double-add defer
+    if (strpos($tag, 'defer') !== false || strpos($tag, 'async') !== false) {
+        return $tag;
+    }
+
+    return str_replace(' src=', ' defer src=', $tag);
+}, 10, 3);
+
+/**
+ * Preconnect to Google Fonts and optimize font loading.
+ */
+add_action('wp_head', function() {
+    ?>
+    <!-- Preconnect to Google Fonts for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <?php
+}, 1);
+
+/**
+ * Add font-display: swap to Google Fonts to prevent FOIT.
+ */
+add_filter('style_loader_tag', function($tag, $handle, $src) {
+    // Add font-display parameter to Google Fonts URLs
+    if (strpos($src, 'fonts.googleapis.com') !== false) {
+        if (strpos($src, 'display=') === false) {
+            $src_new = add_query_arg('display', 'swap', $src);
+            $tag = str_replace($src, $src_new, $tag);
+        }
+    }
+    return $tag;
+}, 10, 3);
+
+/**
+ * Remove WordPress version from scripts/styles (minor security).
+ */
+add_filter('style_loader_src', function($src) {
+    return $src ? remove_query_arg('ver', $src) : $src;
+}, 10, 1);
+
+add_filter('script_loader_src', function($src) {
+    return $src ? remove_query_arg('ver', $src) : $src;
+}, 10, 1);
+
 /**
  * Hide duplicate posts on the homepage when multiple Divi blog modules
  * display overlapping content.

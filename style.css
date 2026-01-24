@@ -4,6 +4,28 @@ Template: Divi
 */
 
 /* =============================================
+   Global Scroll Fix - Override Divi
+   ============================================= */
+
+html,
+body,
+body.et-fb,
+body.et_divi_theme,
+#page-container,
+#et-main-area {
+    overflow: visible !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+body {
+    overflow: auto !important;
+    min-height: 100vh;
+}
+
+/* =============================================
    Hawaiian Color Palette - CSS Custom Properties
    ============================================= */
 

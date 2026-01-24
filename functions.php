@@ -39,3 +39,38 @@ add_action('wp_footer', function() {
     </script>
     <?php
 }, 99);
+
+/**
+ * Hide WP Tasty recipe total time field when set to 0.
+ */
+add_action('wp_footer', function() {
+    if (!is_singular('post')) {
+        return;
+    }
+    ?>
+    <script>
+    (function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // WP Tasty time selectors
+            const timeSelectors = [
+                '.tasty-recipes-total-time',
+                '.tasty-recipes-details .total-time',
+                '[class*="total-time"]'
+            ];
+
+            timeSelectors.forEach(function(selector) {
+                document.querySelectorAll(selector).forEach(function(el) {
+                    const text = el.textContent.trim();
+                    // Hide if time is 0, "0 minutes", "0 mins", etc.
+                    if (/^(total\s*time[:\s]*)?0(\s*(minutes?|mins?|hours?|hrs?))?$/i.test(text) ||
+                        text === '0' ||
+                        /:\s*0\s*(minutes?|mins?)?$/i.test(text)) {
+                        el.style.display = 'none';
+                    }
+                });
+            });
+        });
+    })();
+    </script>
+    <?php
+}, 99);

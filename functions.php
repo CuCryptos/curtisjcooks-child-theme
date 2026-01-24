@@ -1,6 +1,14 @@
 <?php
 add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
+
+    // Google Fonts: Playfair Display (700) and Lato (400, 600)
+    wp_enqueue_style(
+        'google-fonts-hawaiian',
+        'https://fonts.googleapis.com/css2?family=Lato:wght@400;600&family=Playfair+Display:wght@700&display=swap',
+        [],
+        null
+    );
 });
 
 /* =============================================

@@ -37,6 +37,144 @@ Template: Divi
     --color-accent: var(--color-palm-green);
     --color-text: var(--color-volcanic-black);
     --color-text-muted: var(--color-volcanic-gray);
+
+    /* Typography */
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-size-base: 16px;
+    --line-height-base: 1.6;
+}
+
+/* =============================================
+   Typography - Custom Fonts
+   ============================================= */
+
+/* Base Typography */
+body,
+#page-container {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* H1 and H2 - Playfair Display */
+h1, h2,
+.et_pb_module h1,
+.et_pb_module h2,
+.et_pb_text h1,
+.et_pb_text h2,
+.entry-title,
+.et_pb_title_container h1,
+.et_pb_slide_description h2,
+.et_pb_fullwidth_header h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+/* H3, H4, H5, H6 - Lato */
+h3, h4, h5, h6,
+.et_pb_module h3,
+.et_pb_module h4,
+.et_pb_module h5,
+.et_pb_module h6,
+.et_pb_text h3,
+.et_pb_text h4,
+.et_pb_text h5,
+.et_pb_text h6 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Navigation - Lato */
+#main-header .et-menu a,
+.et_menu_container .et-menu a,
+.et_mobile_menu a,
+#et-secondary-nav a,
+.et-l--header a,
+.menu-item a {
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* Body Text Elements - Lato */
+p,
+.et_pb_text p,
+.entry-content p,
+article p,
+li,
+td,
+th,
+label,
+input,
+textarea,
+select,
+.et_pb_blurb_description,
+.et_pb_toggle_content {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: var(--line-height-base);
+}
+
+/* Strong/Bold Text */
+strong, b,
+.et_pb_text strong {
+    font-weight: 600;
+}
+
+/* Buttons - Lato */
+.et_pb_button,
+button,
+input[type="submit"],
+input[type="button"] {
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+/* Blockquotes */
+blockquote,
+.et_pb_testimonial_description {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.15em;
+    line-height: 1.5;
+}
+
+/* Font Size Scale */
+h1, .et_pb_module h1 { font-size: 2.5rem; }
+h2, .et_pb_module h2 { font-size: 2rem; }
+h3, .et_pb_module h3 { font-size: 1.5rem; }
+h4, .et_pb_module h4 { font-size: 1.25rem; }
+h5, .et_pb_module h5 { font-size: 1.1rem; }
+h6, .et_pb_module h6 { font-size: 1rem; }
+
+/* Responsive Typography */
+@media (max-width: 980px) {
+    body, #page-container {
+        font-size: 15px;
+    }
+
+    h1, .et_pb_module h1 { font-size: 2rem; }
+    h2, .et_pb_module h2 { font-size: 1.75rem; }
+    h3, .et_pb_module h3 { font-size: 1.35rem; }
+}
+
+@media (max-width: 600px) {
+    body, #page-container {
+        font-size: 15px;
+    }
+
+    h1, .et_pb_module h1 { font-size: 1.75rem; }
+    h2, .et_pb_module h2 { font-size: 1.5rem; }
+    h3, .et_pb_module h3 { font-size: 1.25rem; }
 }
 
 /* =============================================

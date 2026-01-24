@@ -3,6 +3,239 @@ Theme Name: Suspended Flavor Child
 Template: Divi
 */
 
+/* =============================================
+   Hawaiian Color Palette - CSS Custom Properties
+   ============================================= */
+
+:root {
+    /* Primary Colors */
+    --color-sunset-orange: #E07B39;
+    --color-sunset-orange-dark: #c65d1a;
+    --color-sunset-orange-light: #feb47b;
+
+    /* Secondary Colors */
+    --color-ocean-deep: #1B4B5A;
+    --color-ocean-deep-light: #2a6a7d;
+
+    /* Background Colors */
+    --color-sand-warm: #F5E6D3;
+    --color-sand-warm-light: #faf4eb;
+
+    /* Accent Colors */
+    --color-palm-green: #4A7C59;
+    --color-palm-green-light: #5d9970;
+
+    /* Text Colors */
+    --color-volcanic-black: #2D2D2D;
+    --color-volcanic-gray: #5a5a5a;
+
+    /* Semantic Aliases */
+    --color-primary: var(--color-sunset-orange);
+    --color-primary-dark: var(--color-sunset-orange-dark);
+    --color-secondary: var(--color-ocean-deep);
+    --color-background: var(--color-sand-warm);
+    --color-accent: var(--color-palm-green);
+    --color-text: var(--color-volcanic-black);
+    --color-text-muted: var(--color-volcanic-gray);
+}
+
+/* =============================================
+   Global Color Overrides (Scoped to Child Theme)
+   ============================================= */
+
+/* Body Background */
+body,
+#page-container,
+.et-l--body,
+#main-content {
+    background-color: var(--color-sand-warm-light);
+}
+
+/* Body Text */
+body,
+.et_pb_text,
+.entry-content,
+.et_pb_module p,
+article p {
+    color: var(--color-text);
+}
+
+/* Headers - Ocean Deep */
+h1, h2, h3, h4, h5, h6,
+.et_pb_module h1,
+.et_pb_module h2,
+.et_pb_module h3,
+.et_pb_module h4,
+.entry-title,
+.et_pb_title_container h1,
+.et_pb_text h1,
+.et_pb_text h2,
+.et_pb_text h3,
+.et_pb_text h4 {
+    color: var(--color-ocean-deep);
+}
+
+/* Links - Sunset Orange */
+a,
+.et_pb_text a,
+.entry-content a,
+article a {
+    color: var(--color-sunset-orange);
+    transition: color 0.2s ease;
+}
+
+a:hover,
+.et_pb_text a:hover,
+.entry-content a:hover,
+article a:hover {
+    color: var(--color-sunset-orange-dark);
+}
+
+/* Buttons - Sunset Orange */
+.et_pb_button,
+.et_pb_button:hover,
+button,
+input[type="submit"],
+input[type="button"],
+.woocommerce a.button,
+.woocommerce button.button {
+    background-color: var(--color-sunset-orange) !important;
+    border-color: var(--color-sunset-orange) !important;
+    color: #fff !important;
+}
+
+.et_pb_button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background-color: var(--color-sunset-orange-dark) !important;
+    border-color: var(--color-sunset-orange-dark) !important;
+}
+
+/* Outlined/Ghost Buttons */
+.et_pb_button.et_pb_button_outline,
+.button-outline {
+    background-color: transparent !important;
+    border-color: var(--color-sunset-orange) !important;
+    color: var(--color-sunset-orange) !important;
+}
+
+.et_pb_button.et_pb_button_outline:hover,
+.button-outline:hover {
+    background-color: var(--color-sunset-orange) !important;
+    color: #fff !important;
+}
+
+/* Success Messages - Palm Green */
+.success,
+.success-message,
+.alert-success,
+.woocommerce-message,
+.gform_confirmation_message,
+.contact-form-success {
+    background-color: var(--color-palm-green);
+    color: #fff;
+    border-color: var(--color-palm-green);
+}
+
+.success a,
+.woocommerce-message a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Form Success States */
+input:valid:not(:placeholder-shown),
+textarea:valid:not(:placeholder-shown) {
+    border-color: var(--color-palm-green);
+}
+
+/* Form Focus States - Sunset Orange */
+input:focus,
+textarea:focus,
+select:focus,
+.et_pb_contact_form input:focus,
+.et_pb_contact_form textarea:focus {
+    border-color: var(--color-sunset-orange) !important;
+    box-shadow: 0 0 0 2px rgba(224, 123, 57, 0.2) !important;
+    outline: none;
+}
+
+/* Navigation Links */
+#main-header .et-menu a,
+.et_menu_container .et-menu a {
+    color: var(--color-ocean-deep);
+}
+
+#main-header .et-menu a:hover,
+.et_menu_container .et-menu a:hover,
+#main-header .et-menu .current-menu-item a {
+    color: var(--color-sunset-orange);
+}
+
+/* Footer */
+#main-footer {
+    background-color: var(--color-ocean-deep);
+}
+
+#main-footer,
+#main-footer p,
+#main-footer .widget-area {
+    color: var(--color-sand-warm-light);
+}
+
+#main-footer a {
+    color: var(--color-sunset-orange-light);
+}
+
+#main-footer a:hover {
+    color: var(--color-sunset-orange);
+}
+
+/* Sidebar/Widget Titles */
+.et_pb_widget h4,
+.widget-title,
+#sidebar .widget-title {
+    color: var(--color-ocean-deep);
+    border-bottom-color: var(--color-sunset-orange);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left-color: var(--color-sunset-orange);
+    background-color: var(--color-sand-warm);
+    color: var(--color-volcanic-gray);
+}
+
+/* Selection Highlight */
+::selection {
+    background-color: var(--color-sunset-orange);
+    color: #fff;
+}
+
+::-moz-selection {
+    background-color: var(--color-sunset-orange);
+    color: #fff;
+}
+
+/* Scrollbar (Webkit) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-sand-warm);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-sunset-orange);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-sunset-orange-dark);
+}
+
 /* Hide placeholder footer links (href="#") until pages are created */
 #main-footer a[href="#"],
 #main-footer a[href="/#"],

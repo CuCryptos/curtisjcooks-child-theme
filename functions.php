@@ -10,14 +10,29 @@ add_action('wp_enqueue_scripts', function() {
         null
     );
 
-    // Animations JavaScript
-    wp_enqueue_script(
-        'cjc-animations',
-        get_stylesheet_directory_uri() . '/js/animations.js',
-        [],
-        '1.0.0',
-        true
-    );
+    // Load React app on homepage template
+    if (is_page_template('page-home.php')) {
+        $asset_file = get_stylesheet_directory() . '/build/index.asset.php';
+
+        if (file_exists($asset_file)) {
+            $asset = include $asset_file;
+
+            wp_enqueue_script(
+                'cjc-react-app',
+                get_stylesheet_directory_uri() . '/build/index.js',
+                $asset['dependencies'],
+                $asset['version'],
+                true
+            );
+
+            wp_enqueue_style(
+                'cjc-react-app-style',
+                get_stylesheet_directory_uri() . '/build/index.css',
+                [],
+                $asset['version']
+            );
+        }
+    }
 });
 
 /* =============================================

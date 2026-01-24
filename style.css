@@ -333,3 +333,178 @@ img[data-src].lazyloaded {
         }
     }
 }
+
+/* =============================================
+   Print Styles - Clean Recipe Printing
+   ============================================= */
+
+@media print {
+    /* Hide site chrome and non-essential elements */
+    #main-header,
+    #top-header,
+    #et-secondary-nav,
+    .et-l--header,
+    #main-footer,
+    .et-l--footer,
+    #footer-bottom,
+    #sidebar,
+    .et_pb_sidebar,
+    .widget-area,
+    #comment-wrap,
+    #comments,
+    .comment-respond,
+    .et_pb_comments_module,
+    .nav-links,
+    .post-navigation,
+    .related-posts,
+    .et_pb_related_posts {
+        display: none !important;
+    }
+
+    /* Hide ads and promotional content */
+    .ad,
+    .ads,
+    .advertisement,
+    [class*="ad-"],
+    [class*="advert"],
+    [id*="ad-"],
+    .sponsored,
+    .ezoic-ad,
+    .adthrive,
+    ins.adsbygoogle,
+    .mediavine-ad {
+        display: none !important;
+    }
+
+    /* Hide interactive elements */
+    .jump-to-recipe-btn,
+    .recipe-search-widget,
+    .et_pb_scroll_top,
+    .social-share,
+    .share-buttons,
+    [class*="share"],
+    .newsletter-signup,
+    .popup,
+    .modal,
+    button:not(.tasty-recipes-print-button),
+    .et_pb_button,
+    video,
+    iframe:not([src*="youtube"]) {
+        display: none !important;
+    }
+
+    /* Hide Divi Builder elements not needed for print */
+    .et_pb_section:not(:has(.tasty-recipes)):not(:has(.entry-content)):not(:has(.post-featured-image)) {
+        display: none !important;
+    }
+
+    /* Reset page layout for print */
+    body,
+    #page-container,
+    #main-content,
+    .container,
+    .et_pb_row,
+    .et_pb_column {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        float: none !important;
+    }
+
+    /* Ensure content is full width */
+    #left-area,
+    .et_pb_post,
+    article {
+        width: 100% !important;
+        float: none !important;
+        margin: 0 !important;
+    }
+
+    /* Style the main post image */
+    .post-featured-image,
+    .et_pb_post_main_image,
+    .entry-featured-image-url {
+        max-width: 400px !important;
+        margin: 0 auto 20px !important;
+        display: block !important;
+    }
+
+    .post-featured-image img,
+    .et_pb_post_main_image img {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* WP Tasty Recipe Card print optimization */
+    .tasty-recipes,
+    .tasty-recipes-entry {
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        margin: 20px 0 !important;
+        padding: 20px !important;
+    }
+
+    .tasty-recipes-image {
+        max-width: 300px !important;
+        margin: 0 auto 15px !important;
+    }
+
+    .tasty-recipes-image img {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Ensure recipe text is readable */
+    .tasty-recipes,
+    .tasty-recipes * {
+        color: #000 !important;
+        background: #fff !important;
+    }
+
+    .tasty-recipes-instructions li,
+    .tasty-recipes-ingredients li {
+        page-break-inside: avoid;
+        margin-bottom: 8px !important;
+    }
+
+    /* Show print button area but hide the actual button */
+    .tasty-recipes-print-button {
+        display: none !important;
+    }
+
+    /* Ensure links don't show URLs (cleaner print) */
+    a[href]:after {
+        content: none !important;
+    }
+
+    /* Typography for print */
+    body {
+        font-size: 12pt !important;
+        line-height: 1.5 !important;
+        color: #000 !important;
+        background: #fff !important;
+    }
+
+    h1, h2, h3, h4 {
+        page-break-after: avoid;
+        color: #000 !important;
+    }
+
+    /* Page margins */
+    @page {
+        margin: 0.75in;
+    }
+
+    /* Avoid awkward page breaks */
+    p, li, img {
+        orphans: 3;
+        widows: 3;
+    }
+
+    img {
+        page-break-inside: avoid;
+        max-width: 100% !important;
+    }
+}

@@ -108,3 +108,74 @@ add_shortcode('recipe_search', function($atts) {
     </div>
 HTML;
 });
+
+/**
+ * Sticky "Jump to Recipe" button for recipe posts.
+ * Appears on scroll when a WP Tasty recipe card is present.
+ */
+add_action('wp_footer', function() {
+    if (!is_singular('post')) {
+        return;
+    }
+    ?>
+    <button id="jump-to-recipe" class="jump-to-recipe-btn" aria-label="Jump to Recipe" style="display: none;">
+        <span class="jump-to-recipe-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 8l4 4-4 4"/>
+                <path d="M3 12h18"/>
+            </svg>
+        </span>
+        <span class="jump-to-recipe-text">Jump to Recipe</span>
+    </button>
+    <script>
+    (function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('jump-to-recipe');
+            if (!btn) return;
+
+            // Find WP Tasty recipe card
+            const recipeCard = document.querySelector('.tasty-recipes, .tasty-recipes-entry, [class*="tasty-recipes"]');
+            if (!recipeCard) {
+                btn.remove();
+                return;
+            }
+
+            let scrollTimeout;
+            const scrollThreshold = 200;
+
+            // Show/hide button based on scroll position
+            function handleScroll() {
+                const scrollY = window.scrollY || window.pageYOffset;
+                const recipeTop = recipeCard.getBoundingClientRect().top + scrollY;
+                const viewportBottom = scrollY + window.innerHeight;
+
+                // Show button after scrolling down, hide when recipe is in view
+                if (scrollY > scrollThreshold && viewportBottom < recipeTop + 100) {
+                    btn.classList.add('visible');
+                    btn.style.display = 'flex';
+                } else {
+                    btn.classList.remove('visible');
+                }
+            }
+
+            // Smooth scroll to recipe
+            btn.addEventListener('click', function() {
+                recipeCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            // Throttled scroll listener
+            window.addEventListener('scroll', function() {
+                if (scrollTimeout) return;
+                scrollTimeout = setTimeout(function() {
+                    handleScroll();
+                    scrollTimeout = null;
+                }, 100);
+            }, { passive: true });
+
+            // Initial check
+            handleScroll();
+        });
+    })();
+    </script>
+    <?php
+}, 99);

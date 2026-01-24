@@ -240,3 +240,96 @@ img[data-src].lazyloaded {
         padding-left: 14px;
     }
 }
+
+/* =============================================
+   Jump to Recipe Button - Tropical Sunset Theme
+   ============================================= */
+
+.jump-to-recipe-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 22px;
+    background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ff6b6b 100%);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(255, 126, 95, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    font-family: inherit;
+}
+
+.jump-to-recipe-btn.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.jump-to-recipe-btn:hover {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff7e5f 50%, #feb47b 100%);
+    box-shadow: 0 6px 25px rgba(255, 126, 95, 0.5),
+                0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.jump-to-recipe-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.jump-to-recipe-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.jump-to-recipe-icon svg {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Decorative palm leaf accent */
+.jump-to-recipe-btn::before {
+    content: "🌴";
+    font-size: 18px;
+    margin-right: 2px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    .jump-to-recipe-btn {
+        bottom: 16px;
+        right: 16px;
+        padding: 12px 18px;
+        font-size: 14px;
+    }
+
+    .jump-to-recipe-btn::before {
+        font-size: 16px;
+    }
+
+    /* Hide text on very small screens, show icon only */
+    @media (max-width: 380px) {
+        .jump-to-recipe-text {
+            display: none;
+        }
+
+        .jump-to-recipe-btn {
+            padding: 14px 16px;
+            border-radius: 50%;
+        }
+
+        .jump-to-recipe-btn::before {
+            margin-right: 0;
+        }
+    }
+}

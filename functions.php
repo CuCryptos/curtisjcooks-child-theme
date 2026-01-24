@@ -557,3 +557,104 @@ add_shortcode('internal_links', function($atts, $content = null) {
     </div>
 HTML;
 });
+
+/* =============================================
+   Related Recipes Section
+   ============================================= */
+
+/**
+ * Display 3 related recipes at the bottom of each post.
+ * Pulls only from Hawaiian recipe categories.
+ */
+add_filter('the_content', function($content) {
+    // Only on single posts, not in admin, not in feeds
+    if (!is_singular('post') || is_admin() || is_feed()) {
+        return $content;
+    }
+
+    // Don't add if we're in a REST API request
+    if (defined('REST_REQUEST') && REST_REQUEST) {
+        return $content;
+    }
+
+    // Hawaiian recipe categories
+    $hawaiian_categories = [
+        'island-comfort',
+        'island-drinks',
+        'poke-seafood',
+        'tropical-treats',
+        'top-articles',
+    ];
+
+    $current_post_id = get_the_ID();
+    $current_categories = wp_get_post_categories($current_post_id, ['fields' => 'slugs']);
+
+    // Find matching Hawaiian categories for current post
+    $matching_cats = array_intersect($current_categories, $hawaiian_categories);
+
+    // Build query args
+    $args = [
+        'post_type' => 'post',
+        'posts_per_page' => 3,
+        'post__not_in' => [$current_post_id],
+        'orderby' => 'rand',
+    ];
+
+    // If current post is in Hawaiian categories, prioritize those
+    if (!empty($matching_cats)) {
+        $args['category_name'] = implode(',', $matching_cats);
+    } else {
+        // Otherwise, pull from all Hawaiian categories
+        $args['category_name'] = implode(',', $hawaiian_categories);
+    }
+
+    $related_query = new WP_Query($args);
+
+    // If not enough posts found, try all Hawaiian categories
+    if ($related_query->post_count < 3 && !empty($matching_cats)) {
+        $args['category_name'] = implode(',', $hawaiian_categories);
+        $related_query = new WP_Query($args);
+    }
+
+    if (!$related_query->have_posts()) {
+        return $content;
+    }
+
+    $related_html = '<div class="related-recipes-section">';
+    $related_html .= '<h3 class="related-recipes-title">More Hawaiian Recipes</h3>';
+    $related_html .= '<div class="related-recipes-grid">';
+
+    while ($related_query->have_posts()) {
+        $related_query->the_post();
+
+        $thumbnail = get_the_post_thumbnail(get_the_ID(), 'medium', ['class' => 'related-recipe-image']);
+        if (!$thumbnail) {
+            $thumbnail = '<div class="related-recipe-no-image"></div>';
+        }
+
+        $title = esc_html(get_the_title());
+        $permalink = esc_url(get_permalink());
+        $excerpt = wp_trim_words(get_the_excerpt(), 12, '...');
+
+        $related_html .= <<<HTML
+        <article class="related-recipe-card">
+            <a href="{$permalink}" class="related-recipe-link">
+                <div class="related-recipe-thumbnail">
+                    {$thumbnail}
+                </div>
+                <div class="related-recipe-content">
+                    <h4 class="related-recipe-title">{$title}</h4>
+                    <p class="related-recipe-excerpt">{$excerpt}</p>
+                    <span class="related-recipe-cta">View Recipe →</span>
+                </div>
+            </a>
+        </article>
+HTML;
+    }
+
+    wp_reset_postdata();
+
+    $related_html .= '</div></div>';
+
+    return $content . $related_html;
+}, 20);

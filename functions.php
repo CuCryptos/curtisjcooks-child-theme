@@ -127,6 +127,44 @@ add_filter('script_loader_src', function($src) {
     return $src ? remove_query_arg('ver', $src) : $src;
 }, 10, 1);
 
+/* =============================================
+   SEO: Noindex Non-Hawaiian Category Posts
+   ============================================= */
+
+/**
+ * Add noindex meta tag to posts NOT in main Hawaiian categories.
+ * This helps focus search engines on your core content.
+ */
+add_action('wp_head', function() {
+    // Only apply to single posts
+    if (!is_singular('post')) {
+        return;
+    }
+
+    // Categories that SHOULD be indexed (no noindex)
+    $indexed_categories = [
+        'island-comfort',
+        'island-drinks',
+        'poke-seafood',
+        'tropical-treats',
+        'top-articles',
+    ];
+
+    // Check if current post is in any of the indexed categories
+    $in_indexed_category = false;
+    foreach ($indexed_categories as $category_slug) {
+        if (in_category($category_slug)) {
+            $in_indexed_category = true;
+            break;
+        }
+    }
+
+    // If NOT in an indexed category, add noindex
+    if (!$in_indexed_category) {
+        echo '<meta name="robots" content="noindex, follow">' . "\n";
+    }
+}, 1);
+
 /**
  * Hide duplicate posts on the homepage when multiple Divi blog modules
  * display overlapping content.

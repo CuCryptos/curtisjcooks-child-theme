@@ -6,10 +6,14 @@
 
 get_header();
 
-// Get hero image
+// Get hero image - Hawaiian themed fallback
 $hero_image = function_exists('curtisjcooks_get_site_image')
     ? curtisjcooks_get_site_image('homepage-hero')
-    : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200';
+    : '';
+// Use Hawaiian poke bowl as fallback if no custom image
+if (!$hero_image) {
+    $hero_image = 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=1200'; // Poke bowl
+}
 
 // Pagination
 $paged = get_query_var('paged') ? get_query_var('paged') : 1;

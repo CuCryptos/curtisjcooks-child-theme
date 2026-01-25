@@ -8,41 +8,68 @@
 add_action('wp_head', function() {
     ?>
     <style>
-    /* Hide default Divi logo text and replace with CurtisJCooks */
+    /* AGGRESSIVE LOGO OVERRIDE - Replace Divi logo with CurtisJCooks */
+
+    /* Hide ALL default Divi logo elements */
     #logo,
     .logo_container #logo,
-    #main-header .logo_container #logo {
-        font-size: 0 !important;
-        visibility: hidden;
-    }
-
-    #logo::before,
-    .logo_container #logo::before {
-        content: "🌺 CurtisJCooks";
-        visibility: visible;
-        font-size: 24px !important;
-        font-family: 'Playfair Display', Georgia, serif;
-        font-weight: 700;
-        background: linear-gradient(135deg, #f97316, #fb923c);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    /* If using image logo, hide it and show text */
-    .logo_container img {
+    #main-header .logo_container #logo,
+    .logo_container img,
+    #logo img,
+    .logo_container span.logo_helper,
+    #main-header .logo_container img {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    /* Create our custom logo */
+    .logo_container {
+        position: relative !important;
+        display: flex !important;
+        align-items: center !important;
+        min-height: 50px !important;
     }
 
     .logo_container::before {
-        content: "🌺 CurtisJCooks";
-        font-size: 24px;
-        font-family: 'Playfair Display', Georgia, serif;
-        font-weight: 700;
-        background: linear-gradient(135deg, #f97316, #fb923c);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        content: "🌺 CurtisJCooks" !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        font-size: 26px !important;
+        font-family: 'Playfair Display', Georgia, serif !important;
+        font-weight: 700 !important;
+        background: linear-gradient(135deg, #f97316, #fb923c) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        white-space: nowrap !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Handle the logo link */
+    .logo_container a,
+    #logo {
+        display: block !important;
+        text-decoration: none !important;
+    }
+
+    /* Ensure logo shows on fixed header too */
+    .et-fixed-header .logo_container::before,
+    #main-header.et-fixed-header .logo_container::before {
+        content: "🌺 CurtisJCooks" !important;
+        display: block !important;
+        visibility: visible !important;
+        font-size: 22px !important;
+    }
+
+    /* Mobile logo */
+    @media (max-width: 980px) {
+        .logo_container::before {
+            font-size: 20px !important;
+        }
     }
     </style>
     <?php

@@ -82,8 +82,13 @@ add_action('wp_footer', function() {
     ?>
     <script>
     (function() {
+        var isApplyingFix = false;
+
         // Force scroll enable function
         function forceEnableScroll() {
+            if (isApplyingFix) return;
+            isApplyingFix = true;
+
             var elements = [
                 document.documentElement,
                 document.body,
@@ -99,59 +104,27 @@ add_action('wp_footer', function() {
                     el.style.setProperty('overflow-x', 'hidden', 'important');
                     el.style.setProperty('height', 'auto', 'important');
                     el.style.setProperty('max-height', 'none', 'important');
-                    el.style.setProperty('position', 'relative', 'important');
                 }
             });
 
             // Specifically for body
             document.body.style.setProperty('overflow', 'auto', 'important');
             document.body.style.setProperty('overflow-y', 'scroll', 'important');
-            document.body.style.setProperty('min-height', '100vh', 'important');
 
-            // Remove any fixed positioning on page container that blocks scroll
-            var pageContainer = document.getElementById('page-container');
-            if (pageContainer) {
-                pageContainer.style.setProperty('position', 'relative', 'important');
-                pageContainer.style.setProperty('transform', 'none', 'important');
-            }
+            // Reset flag after a small delay
+            setTimeout(function() { isApplyingFix = false; }, 50);
         }
-
-        // Run immediately
-        forceEnableScroll();
 
         // Run on DOMContentLoaded
-        document.addEventListener('DOMContentLoaded', forceEnableScroll);
-
-        // Run after a short delay (for Divi's late JS)
-        setTimeout(forceEnableScroll, 100);
-        setTimeout(forceEnableScroll, 500);
-        setTimeout(forceEnableScroll, 1000);
-
-        // Watch for Divi's mutations
-        if (typeof MutationObserver !== 'undefined') {
-            var observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.attributeName === 'style') {
-                        forceEnableScroll();
-                    }
-                });
-            });
-
-            // Observe body for style changes
-            observer.observe(document.body, {
-                attributes: true,
-                attributeFilter: ['style', 'class']
-            });
-
-            // Also observe page container
-            var pageContainer = document.getElementById('page-container');
-            if (pageContainer) {
-                observer.observe(pageContainer, {
-                    attributes: true,
-                    attributeFilter: ['style', 'class']
-                });
-            }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', forceEnableScroll);
+        } else {
+            forceEnableScroll();
         }
+
+        // Run after delays for Divi's late JS
+        setTimeout(forceEnableScroll, 500);
+        setTimeout(forceEnableScroll, 1500);
     })();
     </script>
     <?php

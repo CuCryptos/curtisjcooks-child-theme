@@ -75,60 +75,7 @@ add_action('wp_head', function() {
     <?php
 }, 100);
 
-/**
- * Force enable scrolling on all pages - override Divi's scroll blocking
- */
-add_action('wp_footer', function() {
-    ?>
-    <script>
-    (function() {
-        var isApplyingFix = false;
-
-        // Force scroll enable function
-        function forceEnableScroll() {
-            if (isApplyingFix) return;
-            isApplyingFix = true;
-
-            var elements = [
-                document.documentElement,
-                document.body,
-                document.getElementById('page-container'),
-                document.getElementById('et-main-area'),
-                document.getElementById('main-content')
-            ];
-
-            elements.forEach(function(el) {
-                if (el) {
-                    el.style.setProperty('overflow', 'visible', 'important');
-                    el.style.setProperty('overflow-y', 'auto', 'important');
-                    el.style.setProperty('overflow-x', 'hidden', 'important');
-                    el.style.setProperty('height', 'auto', 'important');
-                    el.style.setProperty('max-height', 'none', 'important');
-                }
-            });
-
-            // Specifically for body
-            document.body.style.setProperty('overflow', 'auto', 'important');
-            document.body.style.setProperty('overflow-y', 'scroll', 'important');
-
-            // Reset flag after a small delay
-            setTimeout(function() { isApplyingFix = false; }, 50);
-        }
-
-        // Run on DOMContentLoaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', forceEnableScroll);
-        } else {
-            forceEnableScroll();
-        }
-
-        // Run after delays for Divi's late JS
-        setTimeout(forceEnableScroll, 500);
-        setTimeout(forceEnableScroll, 1500);
-    })();
-    </script>
-    <?php
-}, 9999);
+/* Scroll fix moved to CSS only - see style.css */
 
 add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');

@@ -5157,3 +5157,367 @@ body.custom-hawaiian-footer #main-footer {
         display: none;
     }
 }
+
+/* =============================================
+   Print-Friendly Recipe Styles
+   ============================================= */
+
+@media print {
+    /* Hide non-essential elements */
+    header,
+    footer,
+    nav,
+    .cjc-single-hero,
+    .cjc-author-box,
+    .cjc-related-posts,
+    .jump-to-recipe-btn,
+    .pin-it-button,
+    .breadcrumbs,
+    .island-favorites-section,
+    .ohana-signup,
+    .cjc-newsletter-enhanced,
+    #main-header,
+    #top-header,
+    #main-footer,
+    .et_pb_section:not(.recipe-content),
+    .social-share,
+    .comments-area,
+    aside,
+    .sidebar {
+        display: none !important;
+    }
+
+    /* Reset body styles */
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Recipe content styling */
+    .cjc-single-content-wrapper,
+    .tasty-recipes,
+    .tasty-recipes-entry {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 20px !important;
+    }
+
+    /* Recipe card styling for print */
+    .tasty-recipes {
+        border: 2px solid #333 !important;
+        page-break-inside: avoid;
+    }
+
+    .tasty-recipes-header {
+        background: none !important;
+        color: black !important;
+    }
+
+    .tasty-recipes h2 {
+        font-size: 18pt !important;
+        color: black !important;
+    }
+
+    /* Ensure images print well */
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    /* Print title at top */
+    .cjc-single-content::before {
+        content: attr(data-title);
+        display: block;
+        font-size: 24pt;
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    /* Links - show URL */
+    a[href]:after {
+        content: none !important;
+    }
+
+    /* Page breaks */
+    h2, h3 {
+        page-break-after: avoid;
+    }
+
+    .tasty-recipes-ingredients,
+    .tasty-recipes-instructions {
+        page-break-inside: avoid;
+    }
+}
+
+/* Print button styling */
+.print-recipe-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f3f4f6;
+    color: #374151;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.print-recipe-btn:hover {
+    background: #e5e7eb;
+    color: #1f2937;
+}
+
+.print-recipe-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* =============================================
+   Pin It Button Styles
+   ============================================= */
+
+.pin-it-container {
+    position: relative;
+    display: inline-block;
+}
+
+.pin-it-button {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #E60023;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 24px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.pin-it-container:hover .pin-it-button,
+.cjc-single-content img:hover + .pin-it-button,
+.pin-it-button:hover {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pin-it-button:hover {
+    background: #ad081b;
+    color: white;
+}
+
+.pin-it-button svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* Pin button on recipe cards */
+.cjc-recipe-card-image {
+    position: relative;
+}
+
+.cjc-recipe-card-image .pin-it-button {
+    top: 8px;
+    left: 8px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+/* =============================================
+   Reading Time & Post Meta Enhancements
+   ============================================= */
+
+.reading-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.reading-time svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.cjc-post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.cjc-post-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cjc-post-meta-item svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* =============================================
+   Breadcrumb Navigation
+   ============================================= */
+
+.cjc-breadcrumbs {
+    padding: 16px 24px;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.cjc-breadcrumbs-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cjc-breadcrumbs-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.875rem;
+}
+
+.cjc-breadcrumbs-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cjc-breadcrumbs-item a {
+    color: #6b7280;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.cjc-breadcrumbs-item a:hover {
+    color: #f97316;
+}
+
+.cjc-breadcrumbs-separator {
+    color: #d1d5db;
+    font-size: 0.75rem;
+}
+
+.cjc-breadcrumbs-current {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+/* Home icon in breadcrumbs */
+.cjc-breadcrumbs-home svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+/* Responsive breadcrumbs */
+@media (max-width: 640px) {
+    .cjc-breadcrumbs {
+        padding: 12px 16px;
+    }
+
+    .cjc-breadcrumbs-list {
+        font-size: 0.8rem;
+    }
+}
+
+/* =============================================
+   Recipe Action Buttons Bar
+   ============================================= */
+
+.recipe-actions-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 24px 0;
+    padding: 16px;
+    background: #f9fafb;
+    border-radius: 12px;
+}
+
+.recipe-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.recipe-action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.recipe-action-btn.print {
+    background: #374151;
+    color: white;
+}
+
+.recipe-action-btn.print:hover {
+    background: #1f2937;
+}
+
+.recipe-action-btn.pin {
+    background: #E60023;
+    color: white;
+}
+
+.recipe-action-btn.pin:hover {
+    background: #ad081b;
+}
+
+.recipe-action-btn.share {
+    background: #f97316;
+    color: white;
+}
+
+.recipe-action-btn.share:hover {
+    background: #ea580c;
+}
+
+@media (max-width: 640px) {
+    .recipe-actions-bar {
+        justify-content: center;
+    }
+
+    .recipe-action-btn {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+    }
+}

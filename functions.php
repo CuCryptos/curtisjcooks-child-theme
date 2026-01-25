@@ -1899,3 +1899,336 @@ add_action('wp_head', function() {
     <meta name="pinterest-rich-pin" content="true">
     <?php
 }, 15);
+
+/* =============================================
+   Reading Time Calculator
+   ============================================= */
+
+/**
+ * Calculate estimated reading time for a post.
+ * Returns reading time in minutes.
+ */
+function curtisjcooks_get_reading_time($post_id = null) {
+    if (!$post_id) {
+        $post_id = get_the_ID();
+    }
+
+    $content = get_post_field('post_content', $post_id);
+    $word_count = str_word_count(strip_tags($content));
+    $reading_time = ceil($word_count / 200); // Average reading speed: 200 words/min
+
+    return max(1, $reading_time); // Minimum 1 minute
+}
+
+/**
+ * Display reading time with icon.
+ * Usage: <?php curtisjcooks_reading_time(); ?> or [reading_time]
+ */
+function curtisjcooks_reading_time($post_id = null) {
+    $time = curtisjcooks_get_reading_time($post_id);
+    $text = $time === 1 ? '1 min read' : $time . ' min read';
+
+    echo '<span class="reading-time">';
+    echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+    echo esc_html($text);
+    echo '</span>';
+}
+
+add_shortcode('reading_time', function($atts) {
+    ob_start();
+    curtisjcooks_reading_time();
+    return ob_get_clean();
+});
+
+/* =============================================
+   Breadcrumb Navigation
+   ============================================= */
+
+/**
+ * Display breadcrumb navigation.
+ * Usage: <?php curtisjcooks_breadcrumbs(); ?> or [cjc_breadcrumbs]
+ */
+function curtisjcooks_breadcrumbs() {
+    if (is_front_page()) {
+        return;
+    }
+
+    $home_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
+    $separator = '<span class="cjc-breadcrumbs-separator">›</span>';
+
+    echo '<nav class="cjc-breadcrumbs" aria-label="Breadcrumb">';
+    echo '<div class="cjc-breadcrumbs-container">';
+    echo '<ol class="cjc-breadcrumbs-list" itemscope itemtype="https://schema.org/BreadcrumbList">';
+
+    // Home
+    echo '<li class="cjc-breadcrumbs-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+    echo '<a href="' . esc_url(home_url('/')) . '" class="cjc-breadcrumbs-home" itemprop="item">' . $home_icon . '<span class="screen-reader-text" itemprop="name">Home</span></a>';
+    echo '<meta itemprop="position" content="1">';
+    echo '</li>';
+
+    $position = 2;
+
+    if (is_category()) {
+        $category = get_queried_object();
+        echo $separator;
+        echo '<li class="cjc-breadcrumbs-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+        echo '<a href="' . esc_url(home_url('/recipes/')) . '" itemprop="item"><span itemprop="name">Recipes</span></a>';
+        echo '<meta itemprop="position" content="' . $position . '">';
+        echo '</li>';
+        $position++;
+
+        echo $separator;
+        echo '<li class="cjc-breadcrumbs-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+        echo '<span class="cjc-breadcrumbs-current" itemprop="name">' . esc_html($category->name) . '</span>';
+        echo '<meta itemprop="position" content="' . $position . '">';
+        echo '</li>';
+
+    } elseif (is_singular('post')) {
+        $categories = get_the_category();
+
+        echo $separator;
+        echo '<li class="cjc-breadcrumbs-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+        echo '<a href="' . esc_url(home_url('/recipes/')) . '" itemprop="item"><span itemprop="name">Recipes</span></a>';
+        echo '<meta itemprop="position" content="' . $position . '">';
+        echo '</li>';
+        $position++;
+
+        if (!empty($categories)) {
+            echo $separator;
+            echo '<li class="cjc-breadcrumbs-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+            echo '<a href="' . esc_url(get_category_link($categories[0]->term_id)) . '" itemprop="item"><span itemprop="name">' . esc_html($categories[0]->name) . '</span></a>';
+            echo '<meta itemprop="position" content="' . $position . '">';
+            echo '</li>';
+            $position++;
+        }
+
+        echo $separator;
+        echo '<li class="cjc-breadcrumbs-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+        echo '<span class="cjc-breadcrumbs-current" itemprop="name">' . esc_html(get_the_title()) . '</span>';
+        echo '<meta itemprop="position" content="' . $position . '">';
+        echo '</li>';
+
+    } elseif (is_page()) {
+        $ancestors = get_post_ancestors(get_the_ID());
+
+        if ($ancestors) {
+            $ancestors = array_reverse($ancestors);
+            foreach ($ancestors as $ancestor_id) {
+                echo $separator;
+                echo '<li class="cjc-breadcrumbs-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+                echo '<a href="' . esc_url(get_permalink($ancestor_id)) . '" itemprop="item"><span itemprop="name">' . esc_html(get_the_title($ancestor_id)) . '</span></a>';
+                echo '<meta itemprop="position" content="' . $position . '">';
+                echo '</li>';
+                $position++;
+            }
+        }
+
+        echo $separator;
+        echo '<li class="cjc-breadcrumbs-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+        echo '<span class="cjc-breadcrumbs-current" itemprop="name">' . esc_html(get_the_title()) . '</span>';
+        echo '<meta itemprop="position" content="' . $position . '">';
+        echo '</li>';
+
+    } elseif (is_search()) {
+        echo $separator;
+        echo '<li class="cjc-breadcrumbs-item">';
+        echo '<span class="cjc-breadcrumbs-current">Search: "' . esc_html(get_search_query()) . '"</span>';
+        echo '</li>';
+    }
+
+    echo '</ol>';
+    echo '</div>';
+    echo '</nav>';
+}
+
+add_shortcode('cjc_breadcrumbs', function() {
+    ob_start();
+    curtisjcooks_breadcrumbs();
+    return ob_get_clean();
+});
+
+/**
+ * Auto-add breadcrumbs to posts and pages.
+ */
+add_action('et_before_main_content', 'curtisjcooks_breadcrumbs', 5);
+
+/* =============================================
+   Pin It Button
+   ============================================= */
+
+/**
+ * Generate Pinterest share URL.
+ */
+function curtisjcooks_get_pinterest_url($url = null, $image = null, $description = null) {
+    if (!$url) {
+        $url = get_permalink();
+    }
+    if (!$image) {
+        $image = get_the_post_thumbnail_url(get_the_ID(), 'large');
+    }
+    if (!$description) {
+        $description = get_the_title() . ' - ' . get_bloginfo('name');
+    }
+
+    return 'https://pinterest.com/pin/create/button/?' . http_build_query([
+        'url' => $url,
+        'media' => $image,
+        'description' => $description,
+    ]);
+}
+
+/**
+ * Pin It button HTML.
+ */
+function curtisjcooks_pin_button($image_url = null, $title = null) {
+    $pinterest_url = curtisjcooks_get_pinterest_url(null, $image_url, $title);
+
+    $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>';
+
+    return '<a href="' . esc_url($pinterest_url) . '" class="pin-it-button" target="_blank" rel="noopener noreferrer" aria-label="Pin this recipe">' . $svg . ' Pin</a>';
+}
+
+/**
+ * Add Pin It buttons to post images via JavaScript.
+ */
+add_action('wp_footer', function() {
+    if (!is_singular('post')) {
+        return;
+    }
+
+    $post_url = get_permalink();
+    $post_title = get_the_title() . ' - ' . get_bloginfo('name');
+    ?>
+    <script>
+    (function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find all images in post content
+            var images = document.querySelectorAll('.cjc-single-content img, .entry-content img, .tasty-recipes img');
+
+            images.forEach(function(img) {
+                // Skip small images and icons
+                if (img.width < 200 || img.height < 150) return;
+
+                // Create wrapper if not already wrapped
+                var parent = img.parentNode;
+                if (!parent.classList.contains('pin-it-container')) {
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'pin-it-container';
+                    wrapper.style.display = 'inline-block';
+                    wrapper.style.position = 'relative';
+                    parent.insertBefore(wrapper, img);
+                    wrapper.appendChild(img);
+                    parent = wrapper;
+                }
+
+                // Create Pin button
+                var pinBtn = document.createElement('a');
+                var imgSrc = img.src;
+                var pinUrl = 'https://pinterest.com/pin/create/button/?url=' +
+                    encodeURIComponent('<?php echo esc_js($post_url); ?>') +
+                    '&media=' + encodeURIComponent(imgSrc) +
+                    '&description=' + encodeURIComponent('<?php echo esc_js($post_title); ?>');
+
+                pinBtn.href = pinUrl;
+                pinBtn.className = 'pin-it-button';
+                pinBtn.target = '_blank';
+                pinBtn.rel = 'noopener noreferrer';
+                pinBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg> Pin';
+
+                parent.appendChild(pinBtn);
+            });
+        });
+    })();
+    </script>
+    <?php
+}, 100);
+
+/* =============================================
+   Recipe Actions Bar (Print, Pin, Share)
+   ============================================= */
+
+/**
+ * Add recipe action buttons to posts.
+ * Includes Print, Pin, and Share buttons.
+ */
+add_filter('the_content', function($content) {
+    if (!is_singular('post') || is_admin() || is_feed()) {
+        return $content;
+    }
+
+    $post_url = get_permalink();
+    $post_title = get_the_title();
+    $post_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
+
+    // Pinterest URL
+    $pinterest_url = curtisjcooks_get_pinterest_url($post_url, $post_image, $post_title . ' - Hawaiian Recipe from CurtisJCooks');
+
+    // Facebook share URL
+    $facebook_url = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($post_url);
+
+    $actions_bar = <<<HTML
+    <div class="recipe-actions-bar">
+        <button class="recipe-action-btn print" onclick="window.print();">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"/>
+                <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+                <rect x="6" y="14" width="12" height="8"/>
+            </svg>
+            Print Recipe
+        </button>
+        <a href="{$pinterest_url}" class="recipe-action-btn pin" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+            </svg>
+            Pin It
+        </a>
+        <a href="{$facebook_url}" class="recipe-action-btn share" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+            Share
+        </a>
+    </div>
+HTML;
+
+    // Add after the first paragraph or at the start
+    $paragraphs = explode('</p>', $content);
+    if (count($paragraphs) > 1) {
+        $paragraphs[0] .= '</p>' . $actions_bar;
+        $content = implode('</p>', $paragraphs);
+    } else {
+        $content = $actions_bar . $content;
+    }
+
+    return $content;
+}, 15);
+
+/**
+ * Add reading time to post meta in single.php.
+ */
+add_filter('the_content', function($content) {
+    if (!is_singular('post') || is_admin() || is_feed()) {
+        return $content;
+    }
+
+    $reading_time = curtisjcooks_get_reading_time();
+    $time_text = $reading_time === 1 ? '1 min read' : $reading_time . ' min read';
+
+    $meta_html = <<<HTML
+    <div class="cjc-post-meta">
+        <span class="cjc-post-meta-item reading-time">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            {$time_text}
+        </span>
+    </div>
+HTML;
+
+    return $meta_html . $content;
+}, 5);

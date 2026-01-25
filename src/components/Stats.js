@@ -4,63 +4,59 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-// Custom hook for counting animation
+// Custom hook for counting animation - starts immediately when mounted
 function useCounter(end, duration = 2000, start = 0, decimals = 0) {
-    const [count, setCount] = useState(start);
-    const [isVisible, setIsVisible] = useState(false);
+    // Start with the end value so something is always visible
+    const [count, setCount] = useState(decimals > 0 ? parseFloat(end).toFixed(decimals) : end);
+    const [hasAnimated, setHasAnimated] = useState(false);
     const ref = useRef(null);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
+        // Start animation after a brief delay to ensure mount
+        const timer = setTimeout(() => {
+            if (hasAnimated) return;
+            setHasAnimated(true);
+
+            // Reset to start and animate
+            setCount(decimals > 0 ? parseFloat(start).toFixed(decimals) : start);
+
+            let startTime;
+            const animate = (timestamp) => {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const currentValue = start + (end - start) * easeOut;
+
+                if (decimals > 0) {
+                    setCount(currentValue.toFixed(decimals));
+                } else {
+                    setCount(Math.floor(currentValue));
                 }
-            },
-            { threshold: 0.5 }
-        );
 
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            };
 
-        return () => observer.disconnect();
-    }, []);
+            requestAnimationFrame(animate);
+        }, 100);
 
-    useEffect(() => {
-        if (!isVisible) return;
+        return () => clearTimeout(timer);
+    }, [end, duration, start, decimals, hasAnimated]);
 
-        let startTime;
-        const animate = (timestamp) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-            const currentValue = start + (end - start) * easeOut;
-
-            if (decimals > 0) {
-                setCount(currentValue.toFixed(decimals));
-            } else {
-                setCount(Math.floor(currentValue));
-            }
-
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            }
-        };
-
-        requestAnimationFrame(animate);
-    }, [isVisible, end, duration, start, decimals]);
-
-    return [count, ref, isVisible];
+    return [count, ref];
 }
 
 function StatItem({ value, label, suffix = '', decimals = 0 }) {
-    const [count, ref, isVisible] = useCounter(value, 2000, 0, decimals);
+    const [count, ref] = useCounter(value, 2000, 0, decimals);
+
+    // Format the display value
+    const displayValue = decimals > 0 ? count : Number(count).toLocaleString();
 
     return (
-        <div ref={ref} className={`cjc-stat-item ${isVisible ? 'is-visible' : ''}`}>
+        <div ref={ref} className="cjc-stat-item is-visible">
             <div className="cjc-stat-number">
-                {decimals > 0 ? count : count.toLocaleString()}{suffix}
+                {displayValue}{suffix}
             </div>
             <div className="cjc-stat-label">{label}</div>
         </div>

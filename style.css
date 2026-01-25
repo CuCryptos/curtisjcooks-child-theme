@@ -26,6 +26,87 @@ body {
 }
 
 /* =============================================
+   Header Fix - Logo and Menu Overlap
+   ============================================= */
+
+#main-header,
+#top-header,
+.et-fixed-header#main-header {
+    position: relative !important;
+    z-index: 99999 !important;
+}
+
+/* Ensure header has proper layout */
+#main-header .container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+    padding: 0 24px !important;
+}
+
+/* Logo container - fixed width on left */
+.logo_container {
+    flex: 0 0 auto !important;
+    max-width: 250px !important;
+    margin-right: 40px !important;
+}
+
+#logo {
+    max-height: 60px !important;
+}
+
+/* Navigation - takes remaining space on right */
+#et-top-navigation {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+
+#top-menu {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+#top-menu li {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#top-menu li a {
+    padding: 10px 16px !important;
+    white-space: nowrap !important;
+}
+
+/* Mobile header adjustments */
+@media (max-width: 980px) {
+    #main-header .container {
+        flex-wrap: wrap !important;
+        padding: 12px 16px !important;
+    }
+
+    .logo_container {
+        max-width: 200px !important;
+        margin-right: 20px !important;
+    }
+
+    #et-top-navigation {
+        position: relative !important;
+    }
+}
+
+/* Ensure main content clears header */
+#main-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* =============================================
    Hawaiian Color Palette - CSS Custom Properties
    ============================================= */
 

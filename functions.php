@@ -1736,3 +1736,166 @@ add_shortcode('cjc_footer_enhanced', function() {
     </footer>
 HTML;
 });
+
+/* =============================================
+   SEO: Meta Descriptions & Open Graph Tags
+   ============================================= */
+
+/**
+ * Add meta descriptions and Open Graph tags for better SEO and social sharing.
+ */
+add_action('wp_head', function() {
+    $site_name = get_bloginfo('name');
+    $default_description = 'Authentic Hawaiian recipes bringing island flavors to your kitchen. Discover poke, plate lunch, tropical treats, and more from CurtisJCooks.';
+
+    // Get the Open Graph image
+    $og_image = curtisjcooks_get_site_image('og-social-share');
+    if (!$og_image) {
+        $og_image = curtisjcooks_get_site_image('homepage-hero');
+    }
+
+    // Determine page-specific meta
+    if (is_front_page()) {
+        $title = $site_name . ' - Authentic Hawaiian Recipes';
+        $description = $default_description;
+        $url = home_url('/');
+    } elseif (is_singular('post')) {
+        $title = get_the_title() . ' - ' . $site_name;
+        $excerpt = get_the_excerpt();
+        $description = $excerpt ? wp_strip_all_tags($excerpt) : $default_description;
+        $description = wp_trim_words($description, 25, '...');
+        $url = get_permalink();
+
+        // Use post thumbnail for Open Graph if available
+        $post_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
+        if ($post_image) {
+            $og_image = $post_image;
+        }
+    } elseif (is_category()) {
+        $category = get_queried_object();
+        $title = $category->name . ' Recipes - ' . $site_name;
+        $description = $category->description ?: "Explore our {$category->name} recipes. " . $default_description;
+        $url = get_category_link($category->term_id);
+
+        // Try to get category-specific image
+        $cat_image = curtisjcooks_get_category_header_image($category->slug);
+        if ($cat_image) {
+            $og_image = $cat_image;
+        }
+    } elseif (is_page()) {
+        $title = get_the_title() . ' - ' . $site_name;
+        $page_content = get_the_excerpt() ?: wp_trim_words(get_the_content(), 25, '...');
+        $description = wp_strip_all_tags($page_content) ?: $default_description;
+        $url = get_permalink();
+    } else {
+        $title = wp_title('|', false, 'right') . $site_name;
+        $description = $default_description;
+        $url = home_url($_SERVER['REQUEST_URI']);
+    }
+
+    // Escape values
+    $title = esc_attr($title);
+    $description = esc_attr($description);
+    $url = esc_url($url);
+    $og_image = $og_image ? esc_url($og_image) : '';
+    ?>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="<?php echo $description; ?>">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="<?php echo is_singular('post') ? 'article' : 'website'; ?>">
+    <meta property="og:url" content="<?php echo $url; ?>">
+    <meta property="og:title" content="<?php echo $title; ?>">
+    <meta property="og:description" content="<?php echo $description; ?>">
+    <meta property="og:site_name" content="<?php echo esc_attr($site_name); ?>">
+    <?php if ($og_image): ?>
+    <meta property="og:image" content="<?php echo $og_image; ?>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <?php endif; ?>
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?php echo $title; ?>">
+    <meta name="twitter:description" content="<?php echo $description; ?>">
+    <?php if ($og_image): ?>
+    <meta name="twitter:image" content="<?php echo $og_image; ?>">
+    <?php endif; ?>
+
+    <!-- Pinterest -->
+    <?php if (is_singular('post') && $og_image): ?>
+    <meta property="og:image:alt" content="<?php echo $title; ?>">
+    <?php endif; ?>
+
+    <?php
+}, 5);
+
+/**
+ * Add JSON-LD structured data for recipes.
+ * Helps with rich snippets in search results.
+ */
+add_action('wp_head', function() {
+    if (!is_singular('post')) {
+        return;
+    }
+
+    $post_id = get_the_ID();
+    $title = get_the_title();
+    $excerpt = get_the_excerpt() ?: wp_trim_words(get_the_content(), 50, '...');
+    $image = get_the_post_thumbnail_url($post_id, 'large');
+    $date_published = get_the_date('c');
+    $date_modified = get_the_modified_date('c');
+    $author = get_the_author();
+
+    // Get prep/cook time if available
+    $prep_time = get_post_meta($post_id, 'prep_time', true) ?: '15';
+    $cook_time = get_post_meta($post_id, 'cook_time', true) ?: '30';
+
+    // Basic Recipe schema
+    $schema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Recipe',
+        'name' => $title,
+        'description' => wp_strip_all_tags($excerpt),
+        'author' => [
+            '@type' => 'Person',
+            'name' => $author,
+        ],
+        'datePublished' => $date_published,
+        'dateModified' => $date_modified,
+        'prepTime' => 'PT' . intval($prep_time) . 'M',
+        'cookTime' => 'PT' . intval($cook_time) . 'M',
+        'totalTime' => 'PT' . (intval($prep_time) + intval($cook_time)) . 'M',
+        'recipeCategory' => 'Main Course',
+        'recipeCuisine' => 'Hawaiian',
+    ];
+
+    if ($image) {
+        $schema['image'] = [$image];
+    }
+
+    ?>
+    <script type="application/ld+json">
+    <?php echo wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?>
+    </script>
+    <?php
+}, 10);
+
+/**
+ * Add Pinterest-specific meta for recipe pins.
+ */
+add_action('wp_head', function() {
+    if (!is_singular('post')) {
+        return;
+    }
+
+    // Pinterest Rich Pin data (uses Open Graph, but we can add Pinterest-specific hints)
+    $categories = get_the_category();
+    $category_name = !empty($categories) ? $categories[0]->name : 'Hawaiian Recipe';
+    ?>
+    <!-- Pinterest Rich Pin hints -->
+    <meta property="og:see_also" content="<?php echo esc_url(home_url('/recipes/')); ?>">
+    <meta name="pinterest-rich-pin" content="true">
+    <?php
+}, 15);

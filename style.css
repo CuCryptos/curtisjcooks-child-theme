@@ -4,25 +4,65 @@ Template: Divi
 */
 
 /* =============================================
-   Global Scroll Fix - Override Divi
+   Global Scroll Fix - Override Divi (AGGRESSIVE)
    ============================================= */
 
 html,
+html.et-fb-preview,
+html.et-fb,
 body,
 body.et-fb,
+body.et-fb-preview,
 body.et_divi_theme,
+body.et-tb,
+body.et-tb-has-header,
+body.et_fixed_nav,
+body.et_show_nav,
+body.et_primary_nav_dropdown_animation_fade,
 #page-container,
-#et-main-area {
+#et-main-area,
+.et_pb_section,
+#main-content,
+.et-l,
+.et-l--post,
+.et-l--body {
     overflow: visible !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     height: auto !important;
+    min-height: auto !important;
     max-height: none !important;
+    position: relative !important;
 }
 
 body {
     overflow: auto !important;
-    min-height: 100vh;
+    overflow-y: scroll !important;
+    min-height: 100vh !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* Ensure fixed elements don't block scroll */
+#main-header.et-fixed-header,
+.et-fixed-header {
+    position: fixed !important;
+    top: 0 !important;
+    width: 100% !important;
+    z-index: 99999 !important;
+}
+
+/* Reset any Divi transforms that might cause issues */
+.et_pb_section,
+.et_pb_row,
+.et_pb_column {
+    transform: none !important;
+}
+
+/* Prevent fullscreen sections from blocking scroll */
+.et_pb_fullwidth_section,
+.et_pb_specialty_section {
+    overflow: visible !important;
+    max-height: none !important;
 }
 
 /* =============================================

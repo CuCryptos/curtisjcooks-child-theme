@@ -48,6 +48,88 @@ add_action('wp_head', function() {
     <?php
 }, 100);
 
+/**
+ * Force enable scrolling on all pages - override Divi's scroll blocking
+ */
+add_action('wp_footer', function() {
+    ?>
+    <script>
+    (function() {
+        // Force scroll enable function
+        function forceEnableScroll() {
+            var elements = [
+                document.documentElement,
+                document.body,
+                document.getElementById('page-container'),
+                document.getElementById('et-main-area'),
+                document.getElementById('main-content')
+            ];
+
+            elements.forEach(function(el) {
+                if (el) {
+                    el.style.setProperty('overflow', 'visible', 'important');
+                    el.style.setProperty('overflow-y', 'auto', 'important');
+                    el.style.setProperty('overflow-x', 'hidden', 'important');
+                    el.style.setProperty('height', 'auto', 'important');
+                    el.style.setProperty('max-height', 'none', 'important');
+                    el.style.setProperty('position', 'relative', 'important');
+                }
+            });
+
+            // Specifically for body
+            document.body.style.setProperty('overflow', 'auto', 'important');
+            document.body.style.setProperty('overflow-y', 'scroll', 'important');
+            document.body.style.setProperty('min-height', '100vh', 'important');
+
+            // Remove any fixed positioning on page container that blocks scroll
+            var pageContainer = document.getElementById('page-container');
+            if (pageContainer) {
+                pageContainer.style.setProperty('position', 'relative', 'important');
+                pageContainer.style.setProperty('transform', 'none', 'important');
+            }
+        }
+
+        // Run immediately
+        forceEnableScroll();
+
+        // Run on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', forceEnableScroll);
+
+        // Run after a short delay (for Divi's late JS)
+        setTimeout(forceEnableScroll, 100);
+        setTimeout(forceEnableScroll, 500);
+        setTimeout(forceEnableScroll, 1000);
+
+        // Watch for Divi's mutations
+        if (typeof MutationObserver !== 'undefined') {
+            var observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.attributeName === 'style') {
+                        forceEnableScroll();
+                    }
+                });
+            });
+
+            // Observe body for style changes
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['style', 'class']
+            });
+
+            // Also observe page container
+            var pageContainer = document.getElementById('page-container');
+            if (pageContainer) {
+                observer.observe(pageContainer, {
+                    attributes: true,
+                    attributeFilter: ['style', 'class']
+                });
+            }
+        }
+    })();
+    </script>
+    <?php
+}, 9999);
+
 add_action('wp_enqueue_scripts', function() {
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 

@@ -2261,3 +2261,334 @@ HTML;
 
     return $meta_html . $content;
 }, 5);
+
+/* =============================================
+   Content Series Infrastructure
+   ============================================= */
+
+/**
+ * Register Content Series Taxonomy
+ */
+add_action('init', function() {
+    register_taxonomy('content_series', 'post', [
+        'labels' => [
+            'name' => 'Content Series',
+            'singular_name' => 'Series',
+            'search_items' => 'Search Series',
+            'all_items' => 'All Series',
+            'edit_item' => 'Edit Series',
+            'update_item' => 'Update Series',
+            'add_new_item' => 'Add New Series',
+            'new_item_name' => 'New Series Name',
+            'menu_name' => 'Content Series',
+        ],
+        'hierarchical' => true,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'rewrite' => ['slug' => 'series'],
+    ]);
+
+    // Create default series if they don't exist
+    $default_series = [
+        'aloha-friday' => 'Aloha Friday',
+        'plate-lunch-of-the-week' => 'Plate Lunch of the Week',
+        'talk-story' => 'Talk Story',
+        'hawaiian-cooking-101' => 'Hawaiian Cooking 101',
+    ];
+
+    foreach ($default_series as $slug => $name) {
+        if (!term_exists($slug, 'content_series')) {
+            wp_insert_term($name, 'content_series', ['slug' => $slug]);
+        }
+    }
+});
+
+/**
+ * Series Badge Shortcode
+ * Shows a badge for the post's series
+ * Usage: [series_badge]
+ */
+add_shortcode('series_badge', function($atts) {
+    $atts = shortcode_atts(['post_id' => null], $atts);
+    $post_id = $atts['post_id'] ?: get_the_ID();
+    
+    $series = get_the_terms($post_id, 'content_series');
+    if (!$series || is_wp_error($series)) {
+        return '';
+    }
+
+    $term = $series[0];
+    $colors = [
+        'aloha-friday' => '#f97316',
+        'plate-lunch-of-the-week' => '#14b8a6',
+        'talk-story' => '#8b5cf6',
+        'hawaiian-cooking-101' => '#ef4444',
+    ];
+    $color = $colors[$term->slug] ?? '#6b7280';
+
+    return sprintf(
+        '<a href="%s" class="cjc-series-badge" style="background: %s; color: white; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-decoration: none; display: inline-block;">%s</a>',
+        esc_url(get_term_link($term)),
+        esc_attr($color),
+        esc_html($term->name)
+    );
+});
+
+/**
+ * Display Series Posts
+ * Usage: [series_posts series="aloha-friday" count="4"]
+ */
+add_shortcode('series_posts', function($atts) {
+    $atts = shortcode_atts([
+        'series' => '',
+        'count' => 4,
+        'columns' => 2,
+    ], $atts);
+
+    if (empty($atts['series'])) {
+        return '<p>Please specify a series slug.</p>';
+    }
+
+    $posts = new WP_Query([
+        'post_type' => 'post',
+        'posts_per_page' => intval($atts['count']),
+        'tax_query' => [
+            [
+                'taxonomy' => 'content_series',
+                'field' => 'slug',
+                'terms' => $atts['series'],
+            ],
+        ],
+    ]);
+
+    if (!$posts->have_posts()) {
+        return '<p>No posts found in this series.</p>';
+    }
+
+    $colors = [
+        'aloha-friday' => '#f97316',
+        'plate-lunch-of-the-week' => '#14b8a6',
+        'talk-story' => '#8b5cf6',
+        'hawaiian-cooking-101' => '#ef4444',
+    ];
+    $color = $colors[$atts['series']] ?? '#f97316';
+
+    $output = '<div class="cjc-series-grid" style="display: grid; grid-template-columns: repeat(' . intval($atts['columns']) . ', 1fr); gap: 24px; margin: 30px 0;">';
+
+    while ($posts->have_posts()) {
+        $posts->the_post();
+        $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'medium') ?: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400';
+        
+        $output .= sprintf(
+            '<a href="%s" class="cjc-series-card" style="display: block; text-decoration: none; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div style="aspect-ratio: 16/10; overflow: hidden;">
+                    <img src="%s" alt="%s" style="width: 100%%; height: 100%%; object-fit: cover;">
+                </div>
+                <div style="padding: 16px;">
+                    <div style="font-size: 0.75rem; color: %s; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">%s</div>
+                    <h3 style="margin: 0; font-size: 1.1rem; color: #1f2937; line-height: 1.4;">%s</h3>
+                </div>
+            </a>',
+            esc_url(get_permalink()),
+            esc_url($thumbnail),
+            esc_attr(get_the_title()),
+            esc_attr($color),
+            esc_html(get_the_date('M j, Y')),
+            esc_html(get_the_title())
+        );
+    }
+
+    wp_reset_postdata();
+    $output .= '</div>';
+
+    return $output;
+});
+
+/**
+ * Series Landing Page Shortcode
+ * Creates a full landing page for a series
+ * Usage: [series_landing series="hawaiian-cooking-101" title="Hawaiian Cooking 101" description="Master the fundamentals..."]
+ */
+add_shortcode('series_landing', function($atts) {
+    $atts = shortcode_atts([
+        'series' => '',
+        'title' => '',
+        'description' => '',
+        'color' => '',
+    ], $atts);
+
+    if (empty($atts['series'])) {
+        return '<p>Please specify a series slug.</p>';
+    }
+
+    $term = get_term_by('slug', $atts['series'], 'content_series');
+    $title = $atts['title'] ?: ($term ? $term->name : 'Series');
+    $description = $atts['description'] ?: ($term ? $term->description : '');
+
+    $colors = [
+        'aloha-friday' => ['#f97316', '#fb923c'],
+        'plate-lunch-of-the-week' => ['#14b8a6', '#2dd4bf'],
+        'talk-story' => ['#8b5cf6', '#a78bfa'],
+        'hawaiian-cooking-101' => ['#ef4444', '#f87171'],
+    ];
+    $gradient = $colors[$atts['series']] ?? ['#f97316', '#fb923c'];
+
+    $posts = new WP_Query([
+        'post_type' => 'post',
+        'posts_per_page' => -1,
+        'tax_query' => [
+            [
+                'taxonomy' => 'content_series',
+                'field' => 'slug',
+                'terms' => $atts['series'],
+            ],
+        ],
+        'orderby' => 'date',
+        'order' => 'ASC',
+    ]);
+
+    $output = sprintf(
+        '<div class="cjc-series-landing">
+            <div style="background: linear-gradient(135deg, %s 0%%, %s 100%%); padding: 60px 24px; text-align: center; color: white; border-radius: 16px; margin-bottom: 40px;">
+                <h1 style="font-family: Playfair Display, Georgia, serif; font-size: 2.5rem; margin: 0 0 16px 0;">%s</h1>
+                <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto; opacity: 0.95;">%s</p>
+                <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">%d articles in this series</p>
+            </div>',
+        esc_attr($gradient[0]),
+        esc_attr($gradient[1]),
+        esc_html($title),
+        esc_html($description),
+        $posts->post_count
+    );
+
+    if ($posts->have_posts()) {
+        $output .= '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;">';
+        $count = 1;
+
+        while ($posts->have_posts()) {
+            $posts->the_post();
+            $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'medium') ?: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400';
+            $excerpt = wp_trim_words(get_the_excerpt(), 15);
+
+            $output .= sprintf(
+                '<a href="%s" style="display: flex; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div style="flex: 0 0 100px; background: linear-gradient(135deg, %s, %s); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold;">%d</div>
+                    <div style="padding: 20px; flex: 1;">
+                        <h3 style="margin: 0 0 8px 0; font-size: 1.1rem; color: #1f2937;">%s</h3>
+                        <p style="margin: 0; font-size: 0.9rem; color: #6b7280;">%s</p>
+                    </div>
+                </a>',
+                esc_url(get_permalink()),
+                esc_attr($gradient[0]),
+                esc_attr($gradient[1]),
+                $count,
+                esc_html(get_the_title()),
+                esc_html($excerpt)
+            );
+            $count++;
+        }
+
+        wp_reset_postdata();
+        $output .= '</div>';
+    }
+
+    $output .= '</div>';
+
+    return $output;
+});
+
+/**
+ * Aloha Friday Widget
+ * Shows this week's Aloha Friday post
+ * Usage: [aloha_friday_widget]
+ */
+add_shortcode('aloha_friday_widget', function() {
+    $post = get_posts([
+        'post_type' => 'post',
+        'posts_per_page' => 1,
+        'tax_query' => [
+            [
+                'taxonomy' => 'content_series',
+                'field' => 'slug',
+                'terms' => 'aloha-friday',
+            ],
+        ],
+    ]);
+
+    if (empty($post)) {
+        return '';
+    }
+
+    $post = $post[0];
+    $thumbnail = get_the_post_thumbnail_url($post->ID, 'medium') ?: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400';
+
+    return sprintf(
+        '<div class="cjc-aloha-friday-widget" style="background: linear-gradient(135deg, #f97316, #fb923c); border-radius: 16px; overflow: hidden; color: white;">
+            <div style="padding: 20px 20px 10px 20px;">
+                <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;">🌺 Aloha Friday</span>
+                <h3 style="margin: 8px 0 0 0; font-family: Playfair Display, Georgia, serif; font-size: 1.3rem;">%s</h3>
+            </div>
+            <a href="%s" style="display: block;">
+                <img src="%s" alt="%s" style="width: 100%%; height: 180px; object-fit: cover;">
+            </a>
+            <div style="padding: 15px 20px;">
+                <a href="%s" style="color: white; text-decoration: none; font-weight: 600;">Read This Week\'s Feature →</a>
+            </div>
+        </div>',
+        esc_html($post->post_title),
+        esc_url(get_permalink($post->ID)),
+        esc_url($thumbnail),
+        esc_attr($post->post_title),
+        esc_url(get_permalink($post->ID))
+    );
+});
+
+/**
+ * Add series info to post display
+ */
+add_filter('the_content', function($content) {
+    if (!is_singular('post') || is_admin()) {
+        return $content;
+    }
+
+    $series = get_the_terms(get_the_ID(), 'content_series');
+    if (!$series || is_wp_error($series)) {
+        return $content;
+    }
+
+    $term = $series[0];
+    $colors = [
+        'aloha-friday' => ['#f97316', '#fb923c'],
+        'plate-lunch-of-the-week' => ['#14b8a6', '#2dd4bf'],
+        'talk-story' => ['#8b5cf6', '#a78bfa'],
+        'hawaiian-cooking-101' => ['#ef4444', '#f87171'],
+    ];
+    $gradient = $colors[$term->slug] ?? ['#f97316', '#fb923c'];
+
+    // Get other posts in series
+    $related = new WP_Query([
+        'post_type' => 'post',
+        'posts_per_page' => 3,
+        'post__not_in' => [get_the_ID()],
+        'tax_query' => [
+            [
+                'taxonomy' => 'content_series',
+                'field' => 'term_id',
+                'terms' => $term->term_id,
+            ],
+        ],
+    ]);
+
+    $series_box = sprintf(
+        '<div style="background: linear-gradient(135deg, %s, %s); padding: 20px; border-radius: 12px; margin-bottom: 30px; color: white;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; margin-bottom: 8px;">Part of the Series</div>
+            <a href="%s" style="color: white; text-decoration: none; font-size: 1.3rem; font-weight: 700; font-family: Playfair Display, Georgia, serif;">%s</a>
+        </div>',
+        esc_attr($gradient[0]),
+        esc_attr($gradient[1]),
+        esc_url(get_term_link($term)),
+        esc_html($term->name)
+    );
+
+    return $series_box . $content;
+}, 3);

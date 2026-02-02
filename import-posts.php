@@ -38,6 +38,11 @@ echo "Creating categories...\n";
 $categories_to_create = array(
     'hawaiian-breakfast' => 'Hawaiian Breakfast',
     'pupus-snacks' => 'Pupus & Snacks',
+    'island-comfort' => 'Island Comfort',
+    'poke-seafood' => 'Poke & Seafood',
+    'tropical-treats' => 'Tropical Treats',
+    'island-drinks' => 'Island Drinks',
+    'recipes' => 'Recipes',
 );
 
 foreach ($categories_to_create as $slug => $name) {
@@ -1266,6 +1271,384 @@ array(
 </ol>
 
 <p><strong>Storage:</strong> Refrigerate up to 4 days. Can be frozen up to 2 months.</p>
+'
+),
+
+// ============================================
+// BATCH 4: ISLAND COMFORT & MAIN DISHES
+// ============================================
+
+array(
+    'title' => 'Loco Moco – Hawaii\'s Ultimate Comfort Food',
+    'slug' => 'loco-moco-recipe',
+    'meta_description' => 'Loco Moco is Hawaii\'s iconic comfort dish – hamburger patty on rice, topped with a fried egg and smothered in rich brown gravy. Pure local comfort.',
+    'categories' => array($cat_ids['island-comfort'], $cat_ids['recipes']),
+    'tags' => array('comfort food', 'local food', 'hamburger', 'gravy', 'main dish'),
+    'content' => '
+<p>If there\'s one dish that captures the soul of Hawaiian comfort food, it\'s loco moco.</p>
+
+<p>Picture this: a bed of hot white rice. A juicy hamburger patty. A fried egg with a runny yolk. And the whole thing drowning in brown gravy.</p>
+
+<p>It\'s ridiculous. It\'s excessive. It\'s absolutely perfect.</p>
+
+<h2>The Origin Story</h2>
+
+<p>Loco moco was born in Hilo in 1949 at the Lincoln Grill restaurant. A group of teenagers wanted something cheap, filling, and different from the usual American or Asian fare. The cook threw together what he had – rice, a hamburger patty, gravy, and an egg on top.</p>
+
+<p>Why "loco moco"? One of the teenagers was nicknamed "Crazy" – "loco" in Spanish. "Moco" was added just because it rhymed. And that\'s how Hawaii\'s most beloved comfort dish got its ridiculous name.</p>
+
+<h2>What Makes a Perfect Loco Moco</h2>
+
+<p>Every element matters:</p>
+<ul>
+<li><strong>The rice</strong> – Sticky short-grain rice, hot enough to melt everything together</li>
+<li><strong>The patty</strong> – Well-seasoned beef, with a good sear but still juicy</li>
+<li><strong>The egg</strong> – Over easy is traditional, so the yolk runs into the gravy</li>
+<li><strong>The gravy</strong> – Rich, beefy brown gravy that ties everything together</li>
+</ul>
+
+<h2>Loco Moco – Classic Hawaiian Recipe</h2>
+
+<p><strong>The ultimate Hawaiian comfort food – a juicy hamburger patty on rice, topped with a fried egg and smothered in rich brown gravy. This is what local comfort tastes like.</strong></p>
+
+<p><strong>Prep Time:</strong> 10 minutes | <strong>Cook Time:</strong> 20 minutes | <strong>Servings:</strong> 2</p>
+
+<h3>Ingredients</h3>
+
+<p><strong>For the Hamburger Patties:</strong></p>
+<ul>
+<li>1 lb ground beef (80/20)</li>
+<li>1 teaspoon Worcestershire sauce</li>
+<li>½ teaspoon garlic powder</li>
+<li>½ teaspoon onion powder</li>
+<li>Salt and pepper to taste</li>
+<li>1 tablespoon vegetable oil</li>
+</ul>
+
+<p><strong>For the Brown Gravy:</strong></p>
+<ul>
+<li>2 tablespoons butter</li>
+<li>2 tablespoons all-purpose flour</li>
+<li>1½ cups beef broth</li>
+<li>1 tablespoon soy sauce</li>
+<li>½ teaspoon Worcestershire sauce</li>
+<li>Salt and pepper to taste</li>
+</ul>
+
+<p><strong>For Assembly:</strong></p>
+<ul>
+<li>2 cups cooked short-grain rice, hot</li>
+<li>2 large eggs</li>
+<li>1 tablespoon butter</li>
+<li>Green onions, sliced (for garnish)</li>
+</ul>
+
+<h3>Instructions</h3>
+<ol>
+<li><strong>Make the patties:</strong> Mix ground beef with Worcestershire, garlic powder, onion powder, salt, and pepper. Form into 2 patties about ½-inch thick. Make a small indent in the center (prevents puffing).</li>
+<li><strong>Cook the patties:</strong> Heat oil in a skillet over medium-high heat. Cook patties 4-5 minutes per side for medium. Set aside and keep warm.</li>
+<li><strong>Make the gravy:</strong> In the same skillet, melt butter over medium heat. Whisk in flour and cook 1 minute. Slowly whisk in beef broth. Add soy sauce and Worcestershire. Simmer 3-4 minutes until thickened. Season with salt and pepper.</li>
+<li><strong>Fry the eggs:</strong> In another pan, melt butter over medium heat. Fry eggs until whites are set but yolks are still runny (over easy).</li>
+<li><strong>Assemble:</strong> Scoop rice onto plates. Place a hamburger patty on each. Top with a fried egg. Ladle gravy generously over everything. Garnish with green onions.</li>
+</ol>
+
+<p><strong>Serve immediately</strong> – the yolk should break and mix into the gravy.</p>
+
+<h3>Variations</h3>
+<ul>
+<li><strong>Spam loco moco:</strong> Replace the patty with fried Spam slices</li>
+<li><strong>Kalua loco moco:</strong> Use shredded kalua pork instead of beef</li>
+<li><strong>Double loco:</strong> Two patties, two eggs. Go big or go home.</li>
+</ul>
+'
+),
+
+array(
+    'title' => 'Kalua Pork – Authentic Hawaiian Pulled Pork (Slow Cooker or Oven)',
+    'slug' => 'kalua-pork-recipe',
+    'meta_description' => 'Make authentic kalua pork at home without an imu. This tender, smoky Hawaiian pulled pork uses just 3 ingredients and comes out perfect every time.',
+    'categories' => array($cat_ids['island-comfort'], $cat_ids['recipes']),
+    'tags' => array('pork', 'slow cooker', 'luau', 'main dish', 'meal prep'),
+    'content' => '
+<p>At a traditional Hawaiian luau, the centerpiece is always kalua pig – a whole pig slow-roasted underground in an imu (earth oven) for hours, emerging impossibly tender with a subtle smoky flavor.</p>
+
+<p>Most of us don\'t have an imu in our backyard. But we can still make kalua pork that\'s authentic in flavor if not in method.</p>
+
+<h2>The Secret: Liquid Smoke</h2>
+
+<p>When you can\'t roast meat underground over hot rocks and banana leaves, liquid smoke is your best friend. Just a tablespoon or two gives you that distinctive smoky flavor that defines kalua pork.</p>
+
+<p>Some purists scoff. But every local family I know uses it for home-style kalua pork, and it works.</p>
+
+<h2>Why This Recipe Works</h2>
+
+<p>Kalua pork is beautifully simple:</p>
+<ul>
+<li><strong>Pork butt (shoulder)</strong> – Fatty, marbled, meant for slow cooking</li>
+<li><strong>Hawaiian sea salt (or kosher salt)</strong> – The only seasoning you need</li>
+<li><strong>Liquid smoke</strong> – Captures that underground-roasted flavor</li>
+</ul>
+
+<p>That\'s it. Three ingredients. The slow cooker (or oven) does the rest.</p>
+
+<h2>Kalua Pork – Slow Cooker Method</h2>
+
+<p><strong>Tender, smoky, shredded pork made with just 3 ingredients. This Hawaiian luau classic is perfect for sliders, tacos, rice bowls, or eating straight from the pot.</strong></p>
+
+<p><strong>Prep Time:</strong> 10 minutes | <strong>Cook Time:</strong> 8-10 hours (slow cooker) or 6 hours (oven) | <strong>Servings:</strong> 12</p>
+
+<h3>Ingredients</h3>
+<ul>
+<li>5-6 lb bone-in pork butt (pork shoulder)</li>
+<li>2 tablespoons Hawaiian sea salt or kosher salt</li>
+<li>2 tablespoons liquid smoke</li>
+</ul>
+
+<h3>Slow Cooker Instructions</h3>
+<ol>
+<li><strong>Score the meat:</strong> Using a sharp knife, make deep cuts all over the pork in a crosshatch pattern. This helps the seasoning penetrate.</li>
+<li><strong>Season:</strong> Rub salt all over the pork, pressing it into the cuts. Drizzle liquid smoke over all sides.</li>
+<li><strong>Slow cook:</strong> Place pork in slow cooker, fat side up. Cover and cook on LOW for 8-10 hours, until meat is fall-apart tender.</li>
+<li><strong>Shred:</strong> Remove pork to a cutting board. Remove and discard the bone and any large fat pieces. Shred meat with two forks.</li>
+<li><strong>Finish:</strong> Return shredded pork to the cooking liquid. Toss to coat. Taste and add more salt if needed.</li>
+</ol>
+
+<h3>Oven Instructions</h3>
+<ol>
+<li>Preheat oven to 300°F. Score and season pork as above.</li>
+<li>Wrap pork tightly in banana leaves (traditional) or two layers of heavy-duty aluminum foil. Place in a roasting pan.</li>
+<li>Roast 5-6 hours until fork-tender.</li>
+<li>Unwrap, shred, and toss with juices.</li>
+</ol>
+
+<h3>Serving Ideas</h3>
+<ul>
+<li><strong>Classic:</strong> Over rice with macaroni salad (plate lunch style)</li>
+<li><strong>Sliders:</strong> On Hawaiian sweet rolls with pineapple slaw</li>
+<li><strong>Tacos:</strong> With pickled onions and cilantro</li>
+<li><strong>Eggs Benedict:</strong> Under poached eggs with hollandaise</li>
+<li><strong>Nachos:</strong> Loaded with cheese and jalapeños</li>
+</ul>
+
+<h3>Notes</h3>
+<ul>
+<li><strong>Make ahead:</strong> Kalua pork keeps 5 days refrigerated, 3 months frozen</li>
+<li><strong>Crispy bits:</strong> Spread shredded pork on a sheet pan and broil 5 minutes for crispy edges</li>
+</ul>
+'
+),
+
+array(
+    'title' => 'Hawaiian Garlic Shrimp – North Shore Shrimp Truck Style',
+    'slug' => 'hawaiian-garlic-shrimp-recipe',
+    'meta_description' => 'Make famous North Shore garlic shrimp at home. Succulent shrimp swimming in buttery, garlicky sauce – just like the legendary Hawaiian shrimp trucks.',
+    'categories' => array($cat_ids['poke-seafood'], $cat_ids['recipes']),
+    'tags' => array('shrimp', 'seafood', 'garlic', 'main dish', 'quick dinner'),
+    'content' => '
+<p>Drive along Oahu\'s North Shore and you\'ll see them – a collection of colorful food trucks with lines of tourists and locals waiting patiently in the Hawaiian sun.</p>
+
+<p>They\'re all here for the same thing: garlic shrimp.</p>
+
+<p>Giovanni\'s. Romy\'s. Macky\'s. Fumi\'s. Each truck has loyal devotees who swear their version is the best. But they all follow the same basic formula: shell-on shrimp cooked in an obscene amount of butter and garlic.</p>
+
+<h2>The Secret Is In The Garlic</h2>
+
+<p>This isn\'t subtle garlic. This is <em>aggressive</em> garlic. An amount that would make most chefs nervous.</p>
+
+<p>We\'re talking a full head of garlic – sometimes more – for a pound of shrimp. Minced, sautéed until fragrant but not burned, then the shrimp goes in to swim in that buttery garlic pool.</p>
+
+<h2>Shell-On Is Non-Negotiable</h2>
+
+<p>Yes, eating shell-on shrimp is messy. Yes, you\'ll need a mountain of napkins. But the shells:</p>
+<ul>
+<li>Protect the shrimp from overcooking</li>
+<li>Add flavor to the sauce</li>
+<li>Give you something to suck on when you\'re done with the meat</li>
+</ul>
+
+<p>That last point is important. Half the joy is peeling each shrimp and licking the garlic butter off your fingers.</p>
+
+<h2>Hawaiian Garlic Shrimp – Shrimp Truck Style</h2>
+
+<p><strong>Succulent shell-on shrimp swimming in an outrageous amount of butter and garlic. This is the legendary North Shore shrimp truck recipe you can make at home.</strong></p>
+
+<p><strong>Prep Time:</strong> 10 minutes | <strong>Cook Time:</strong> 15 minutes | <strong>Servings:</strong> 2</p>
+
+<h3>Ingredients</h3>
+<ul>
+<li>1 lb large shrimp, shell-on (16-20 count), deveined through shell</li>
+<li>1 head garlic (about 10-12 cloves), minced</li>
+<li>½ cup (1 stick) butter</li>
+<li>2 tablespoons olive oil</li>
+<li>½ teaspoon paprika</li>
+<li>¼ teaspoon cayenne pepper (optional, for heat)</li>
+<li>½ teaspoon salt</li>
+<li>¼ teaspoon black pepper</li>
+<li>2 tablespoons fresh lemon juice</li>
+<li>2 tablespoons white wine (optional)</li>
+<li>Fresh parsley, chopped (for garnish)</li>
+</ul>
+
+<p><strong>For Serving:</strong></p>
+<ul>
+<li>2 cups cooked white rice</li>
+<li>Lemon wedges</li>
+<li>Crusty bread (for sopping up sauce)</li>
+</ul>
+
+<h3>Instructions</h3>
+<ol>
+<li><strong>Prep the shrimp:</strong> Pat shrimp dry with paper towels. Season with salt and pepper.</li>
+<li><strong>Start the sauce:</strong> Heat a large skillet over medium heat. Add butter and olive oil. Once butter melts, add minced garlic, paprika, and cayenne. Sauté 1-2 minutes until garlic is fragrant but not browned.</li>
+<li><strong>Cook the shrimp:</strong> Increase heat to medium-high. Add shrimp in a single layer. Cook 2 minutes without moving. Flip and cook 2 more minutes until pink and just cooked through.</li>
+<li><strong>Finish:</strong> Add wine (if using) and lemon juice. Toss to coat. Remove from heat immediately – shrimp continue cooking in the hot sauce.</li>
+<li><strong>Serve:</strong> Transfer shrimp and ALL the sauce to plates with rice. Garnish with parsley and lemon wedges.</li>
+</ol>
+
+<p><strong>Eat with your hands.</strong> This is mandatory. Use the rice to soak up every last drop of garlic butter.</p>
+
+<h3>Notes</h3>
+<ul>
+<li><strong>Deveining through shell:</strong> Use kitchen shears to cut along the back of each shrimp through the shell. Remove the vein but leave the shell intact.</li>
+<li><strong>Spicy version:</strong> Add ½ teaspoon red pepper flakes with the garlic</li>
+<li><strong>Make it a plate:</strong> Add macaroni salad for full plate lunch style</li>
+</ul>
+'
+),
+
+array(
+    'title' => 'Chicken Long Rice – Hawaii\'s Comforting Noodle Soup',
+    'slug' => 'chicken-long-rice-recipe',
+    'meta_description' => 'Chicken long rice is Hawaii\'s ultimate comfort soup – tender chicken and slippery glass noodles in savory ginger broth. A local favorite for potlucks and soul-warming meals.',
+    'categories' => array($cat_ids['island-comfort'], $cat_ids['recipes']),
+    'tags' => array('soup', 'chicken', 'noodles', 'comfort food', 'potluck'),
+    'content' => '
+<p>Every local family in Hawaii has their version of chicken long rice. It shows up at potlucks, family gatherings, and whenever someone needs comfort.</p>
+
+<p>Feeling sick? Chicken long rice. Bad day? Chicken long rice. Cold and rainy Kona weather? Chicken long rice.</p>
+
+<p>It\'s the Hawaiian equivalent of chicken noodle soup, but with slippery cellophane noodles (long rice) and a ginger-forward broth that warms you from the inside out.</p>
+
+<h2>What Is "Long Rice"?</h2>
+
+<p>Long rice isn\'t rice at all – it\'s glass noodles, also called cellophane noodles or bean thread noodles. Made from mung bean starch, they\'re translucent when cooked and have a wonderful slippery, chewy texture.</p>
+
+<p>The name "long rice" comes from the Chinese community in Hawaii. The noodles are sold in long skeins, and they absorb flavors like rice absorbs water.</p>
+
+<h2>The Key Flavors</h2>
+
+<p>Hawaiian chicken long rice is simple but specific:</p>
+<ul>
+<li><strong>Ginger</strong> – And lots of it. This is a gingery soup.</li>
+<li><strong>Chicken broth</strong> – Homemade if possible, from the bones</li>
+<li><strong>Green onions</strong> – In the soup and piled on top</li>
+<li><strong>Sesame oil</strong> – Just a drizzle at the end</li>
+</ul>
+
+<h2>Chicken Long Rice</h2>
+
+<p><strong>Hawaii\'s beloved comfort soup – tender chicken and slippery glass noodles in a savory ginger-infused broth. Simple, warming, and perfect for feeding a crowd.</strong></p>
+
+<p><strong>Prep Time:</strong> 20 minutes | <strong>Cook Time:</strong> 1 hour | <strong>Servings:</strong> 8</p>
+
+<h3>Ingredients</h3>
+<ul>
+<li>3 lbs bone-in, skin-on chicken thighs</li>
+<li>10 cups water</li>
+<li>4-inch piece fresh ginger, sliced into coins</li>
+<li>6 cloves garlic, smashed</li>
+<li>1 tablespoon salt, plus more to taste</li>
+<li>8 oz long rice (bean thread noodles)</li>
+<li>2 tablespoons vegetable oil</li>
+<li>1 tablespoon fresh ginger, minced</li>
+<li>2 tablespoons soy sauce</li>
+<li>1 teaspoon sesame oil</li>
+<li>1 bunch green onions, sliced (white and green parts separated)</li>
+<li>Cilantro, for garnish</li>
+</ul>
+
+<h3>Instructions</h3>
+<ol>
+<li><strong>Make the broth:</strong> Place chicken, water, sliced ginger, garlic, and salt in a large pot. Bring to a boil, then reduce to a simmer. Cook 40-45 minutes until chicken is cooked through and tender.</li>
+<li><strong>Prep the noodles:</strong> While chicken cooks, soak long rice in warm water for 20 minutes. Drain and cut into 6-inch lengths with scissors (makes eating easier).</li>
+<li><strong>Shred the chicken:</strong> Remove chicken from broth. Let cool slightly. Remove and discard skin and bones. Shred meat into bite-sized pieces. Strain broth and discard ginger and garlic.</li>
+<li><strong>Finish the soup:</strong> Return broth to pot. Heat oil in a small pan, add minced ginger and white parts of green onions. Sauté 1 minute until fragrant. Add to broth along with soy sauce.</li>
+<li><strong>Add noodles and chicken:</strong> Bring broth to a simmer. Add long rice noodles. Cook 3-5 minutes until noodles are soft and translucent. Add shredded chicken. Stir in sesame oil.</li>
+<li><strong>Serve:</strong> Ladle into bowls. Top with green onion greens and cilantro.</li>
+</ol>
+
+<h3>Notes</h3>
+<ul>
+<li><strong>Make ahead:</strong> Store noodles separately from broth – they absorb liquid and get mushy</li>
+<li><strong>Potluck tip:</strong> Transport broth and noodles separately, combine when serving</li>
+<li><strong>Add vegetables:</strong> Napa cabbage or won bok is a popular addition</li>
+</ul>
+'
+),
+
+array(
+    'title' => 'Haupia – Hawaiian Coconut Pudding',
+    'slug' => 'haupia-recipe',
+    'meta_description' => 'Haupia is Hawaii\'s classic coconut pudding – silky, not-too-sweet, and perfect for luaus. This simple 4-ingredient recipe sets up perfectly every time.',
+    'categories' => array($cat_ids['tropical-treats'], $cat_ids['recipes']),
+    'tags' => array('dessert', 'coconut', 'luau', 'easy dessert', 'no-bake'),
+    'content' => '
+<p>At every luau, next to the kalua pig and poi, there\'s always haupia.</p>
+
+<p>Those little white squares of coconut pudding might look simple, but they\'re essential. Haupia is the palate cleanser, the sweet ending, the thing everyone reaches for as they leave the buffet line.</p>
+
+<h2>What Is Haupia?</h2>
+
+<p>Haupia is a traditional Hawaiian dessert made from coconut milk, thickened until it\'s firm enough to slice. It\'s somewhere between pudding and jello in texture – jiggly but sliceable.</p>
+
+<p>The flavor is pure coconut, barely sweetened. It\'s refreshing rather than rich, which is why it\'s perfect after a heavy Hawaiian meal.</p>
+
+<h2>The Modern Evolution</h2>
+
+<p>Traditional haupia was thickened with Polynesian arrowroot (pia). Today, we use cornstarch – same result, much easier to find.</p>
+
+<p>You\'ll also see haupia in modern forms:</p>
+<ul>
+<li><strong>Chocolate haupia pie</strong> – Layered with chocolate pudding</li>
+<li><strong>Haupia cake</strong> – Layered between chiffon cake</li>
+<li><strong>Haupia mochi</strong> – Wrapped in sweet rice dough</li>
+</ul>
+
+<p>But the original squares, served at room temperature or slightly chilled, are still the classic.</p>
+
+<h2>Haupia – Traditional Hawaiian Coconut Pudding</h2>
+
+<p><strong>Silky, lightly sweet coconut pudding that\'s firm enough to slice. This 4-ingredient Hawaiian classic is the perfect ending to any island meal.</strong></p>
+
+<p><strong>Prep Time:</strong> 5 minutes | <strong>Cook Time:</strong> 10 minutes | <strong>Chill Time:</strong> 4 hours | <strong>Servings:</strong> 16 squares</p>
+
+<h3>Ingredients</h3>
+<ul>
+<li>2 cans (13.5 oz each) full-fat coconut milk</li>
+<li>1 cup water</li>
+<li>¾ cup sugar</li>
+<li>½ cup cornstarch</li>
+</ul>
+
+<h3>Instructions</h3>
+<ol>
+<li><strong>Prep the pan:</strong> Line an 8x8 inch pan with plastic wrap, leaving overhang on the sides.</li>
+<li><strong>Make the slurry:</strong> Whisk ½ cup of the coconut milk with cornstarch until smooth. Set aside.</li>
+<li><strong>Heat the base:</strong> Combine remaining coconut milk, water, and sugar in a medium saucepan. Bring to a simmer over medium heat, stirring to dissolve sugar.</li>
+<li><strong>Thicken:</strong> Give the cornstarch slurry a stir. Slowly pour it into the simmering coconut milk, whisking constantly. Continue whisking until mixture thickens significantly, about 3-5 minutes. It should coat a spoon thickly.</li>
+<li><strong>Pour and chill:</strong> Pour immediately into prepared pan. Smooth the top with a spatula. Let cool to room temperature, then refrigerate at least 4 hours or overnight until firm.</li>
+<li><strong>Slice:</strong> Use the plastic wrap overhang to lift haupia from pan. Cut into squares with a sharp knife (dip knife in water between cuts for clean slices).</li>
+</ol>
+
+<p><strong>Serve</strong> at room temperature or chilled. Place squares on ti leaves if you want to be traditional.</p>
+
+<h3>Notes</h3>
+<ul>
+<li><strong>Texture tip:</strong> For firmer haupia, use 5 tablespoons cornstarch. For softer, use 4 tablespoons.</li>
+<li><strong>Full-fat only:</strong> Light coconut milk won\'t set properly</li>
+<li><strong>Storage:</strong> Keeps refrigerated 4-5 days. Cover with plastic wrap touching the surface.</li>
+<li><strong>Serving size:</strong> Cut into 2-inch squares for luau-style portions</li>
+</ul>
 '
 ),
 

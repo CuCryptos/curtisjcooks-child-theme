@@ -1652,6 +1652,402 @@ array(
 '
 ),
 
+// ============================================
+// BATCH 5: MORE LOCAL FAVORITES
+// ============================================
+
+array(
+    'title' => 'Ahi Poke Bowl – The Classic Hawaiian Way',
+    'slug' => 'ahi-poke-bowl-recipe',
+    'meta_description' => 'Learn to make authentic Hawaiian ahi poke bowl with fresh tuna, soy sauce, sesame oil, and all the fixings. The real deal, not the mainland version.',
+    'categories' => array($cat_ids['poke-seafood'], $cat_ids['recipes']),
+    'tags' => array('poke', 'ahi', 'seafood', 'healthy', 'bowl'),
+    'content' => '
+<p>Let\'s get something straight: poke in Hawaii is not the same as what you get at those trendy mainland poke chains.</p>
+
+<p>Hawaiian poke is simple. It\'s about the fish. Fresh ahi, cut into chunks, dressed lightly so the tuna is the star. Not buried under mango, avocado, crispy onions, and seventeen different drizzles.</p>
+
+<h2>What Real Poke Looks Like</h2>
+
+<p>Walk into any poke counter in Hawaii – Foodland, Tamura\'s, your local fish market – and you\'ll see trays of glistening cubed fish. The classics:</p>
+<ul>
+<li><strong>Shoyu poke</strong> – Soy sauce, sesame oil, green onion</li>
+<li><strong>Hawaiian style</strong> – Sea salt, limu (seaweed), kukui nut</li>
+<li><strong>Spicy ahi</strong> – Mayo-based with sriracha</li>
+</ul>
+
+<p>That\'s it. Simple preparations that let the fish shine.</p>
+
+<h2>The Fish Matters Most</h2>
+
+<p>You need sashimi-grade ahi tuna. This isn\'t negotiable. The fish is raw, so it needs to be fresh enough to eat raw safely.</p>
+
+<p>Look for:</p>
+<ul>
+<li>Deep red color (not brown)</li>
+<li>Firm texture</li>
+<li>No fishy smell – fresh tuna smells like the ocean</li>
+<li>"Sashimi-grade" or "sushi-grade" label</li>
+</ul>
+
+<h2>Ahi Poke Bowl – Classic Shoyu Style</h2>
+
+<p><strong>Fresh ahi tuna in a savory sesame-soy marinade, served over rice with traditional Hawaiian toppings. This is poke the way it\'s meant to be.</strong></p>
+
+<p><strong>Prep Time:</strong> 15 minutes | <strong>Marinating:</strong> 15 minutes | <strong>Servings:</strong> 2</p>
+
+<h3>Ingredients</h3>
+
+<p><strong>For the Poke:</strong></p>
+<ul>
+<li>1 lb sashimi-grade ahi tuna, cut into ¾-inch cubes</li>
+<li>3 tablespoons soy sauce</li>
+<li>1 tablespoon sesame oil</li>
+<li>1 teaspoon rice vinegar</li>
+<li>½ teaspoon honey or sugar</li>
+<li>3 green onions, thinly sliced</li>
+<li>1 tablespoon sesame seeds</li>
+<li>½ teaspoon red pepper flakes (optional)</li>
+</ul>
+
+<p><strong>For the Bowl:</strong></p>
+<ul>
+<li>2 cups cooked sushi rice, warm or room temperature</li>
+<li>1 cup cucumber, diced</li>
+<li>½ cup edamame, shelled</li>
+<li>½ avocado, sliced</li>
+<li>Pickled ginger</li>
+<li>Furikake</li>
+<li>Additional soy sauce, for serving</li>
+</ul>
+
+<h3>Instructions</h3>
+<ol>
+<li><strong>Make the poke:</strong> In a medium bowl, whisk together soy sauce, sesame oil, rice vinegar, and honey.</li>
+<li><strong>Add the tuna:</strong> Add cubed ahi to the bowl. Gently fold to coat. Add green onions and sesame seeds. Fold again.</li>
+<li><strong>Marinate:</strong> Let sit 15 minutes at room temperature (or up to 1 hour refrigerated).</li>
+<li><strong>Build the bowls:</strong> Divide rice between two bowls. Arrange cucumber, edamame, and avocado around the edges.</li>
+<li><strong>Add the poke:</strong> Spoon marinated ahi into the center of each bowl.</li>
+<li><strong>Finish:</strong> Top with pickled ginger and a generous sprinkle of furikake.</li>
+</ol>
+
+<p><strong>Serve immediately</strong> with extra soy sauce on the side.</p>
+
+<h3>Notes</h3>
+<ul>
+<li><strong>Don\'t overdress:</strong> The fish should be lightly coated, not swimming in sauce</li>
+<li><strong>Temperature:</strong> Poke is best at cool room temperature, not ice cold</li>
+<li><strong>Variations:</strong> Add ogo (seaweed) or macadamia nuts for crunch</li>
+</ul>
+'
+),
+
+array(
+    'title' => 'Huli Huli Chicken – Hawaii\'s Famous Grilled Chicken',
+    'slug' => 'huli-huli-chicken-recipe',
+    'meta_description' => 'Huli Huli Chicken is Hawaii\'s legendary sweet and savory grilled chicken. Learn the authentic marinade and grilling technique for perfect results.',
+    'categories' => array($cat_ids['island-comfort'], $cat_ids['recipes']),
+    'tags' => array('chicken', 'grilling', 'bbq', 'main dish', 'party food'),
+    'content' => '
+<p>Drive around Hawaii on any given weekend and you\'ll smell it before you see it – smoke rising from fundraiser tents, the sweet char of Huli Huli chicken filling the air.</p>
+
+<p>Churches, schools, sports teams – everyone uses Huli Huli chicken for fundraisers. It\'s an island institution.</p>
+
+<h2>What Does "Huli Huli" Mean?</h2>
+
+<p>"Huli" means "turn" in Hawaiian. So "huli huli" means "turn turn" – which is exactly what you do. The chicken is grilled on large rotating racks, constantly turning over the coals.</p>
+
+<p>The technique was invented by Ernest Morgado in 1955. He was grilling chicken for a fundraiser, basting with his mother\'s teriyaki-style sauce, and the name stuck.</p>
+
+<h2>The Secret Sauce</h2>
+
+<p>Huli Huli marinade is a perfect balance:</p>
+<ul>
+<li><strong>Soy sauce</strong> – Salty, savory depth</li>
+<li><strong>Brown sugar or pineapple juice</strong> – Sweetness that caramelizes</li>
+<li><strong>Ketchup</strong> – Yes, really. Adds tang and color</li>
+<li><strong>Ginger and garlic</strong> – The aromatics</li>
+</ul>
+
+<h2>Huli Huli Chicken</h2>
+
+<p><strong>Sweet, savory, and perfectly charred – this is Hawaii\'s famous grilled chicken. The marinade caramelizes into a sticky glaze that\'s absolutely irresistible.</strong></p>
+
+<p><strong>Prep Time:</strong> 15 minutes | <strong>Marinating:</strong> 4 hours (or overnight) | <strong>Cook Time:</strong> 40 minutes | <strong>Servings:</strong> 6</p>
+
+<h3>Ingredients</h3>
+
+<p><strong>For the Marinade:</strong></p>
+<ul>
+<li>1 cup pineapple juice</li>
+<li>½ cup soy sauce</li>
+<li>½ cup ketchup</li>
+<li>¼ cup brown sugar, packed</li>
+<li>¼ cup rice vinegar or white wine</li>
+<li>2 tablespoons fresh ginger, minced</li>
+<li>4 cloves garlic, minced</li>
+<li>1 teaspoon sesame oil</li>
+</ul>
+
+<p><strong>For the Chicken:</strong></p>
+<ul>
+<li>4 lbs chicken pieces (thighs and drumsticks work best)</li>
+<li>Or 2 whole chickens, spatchcocked</li>
+</ul>
+
+<h3>Instructions</h3>
+<ol>
+<li><strong>Make the marinade:</strong> Whisk together pineapple juice, soy sauce, ketchup, brown sugar, vinegar, ginger, garlic, and sesame oil until sugar dissolves.</li>
+<li><strong>Reserve some for basting:</strong> Set aside 1 cup of marinade for basting and serving (don\'t use marinade that touched raw chicken).</li>
+<li><strong>Marinate the chicken:</strong> Place chicken in a large zip-lock bag or container. Pour remaining marinade over. Refrigerate at least 4 hours, preferably overnight.</li>
+<li><strong>Prep the grill:</strong> Set up for medium indirect heat (about 350°F). For charcoal, bank coals to one side. For gas, turn off one burner.</li>
+<li><strong>Grill:</strong> Remove chicken from marinade, shake off excess. Place on cooler side of grill, skin-side up. Cover and cook 20 minutes.</li>
+<li><strong>Huli (turn):</strong> Flip the chicken. Baste with reserved marinade. Cover and cook another 15 minutes.</li>
+<li><strong>Finish over direct heat:</strong> Move chicken to hot side of grill. Cook 2-3 minutes per side, basting frequently, until skin is caramelized and charred in spots. Internal temp should reach 165°F.</li>
+<li><strong>Rest:</strong> Let chicken rest 5 minutes before serving.</li>
+</ol>
+
+<p><strong>Serve</strong> with rice and macaroni salad for the full plate lunch experience.</p>
+
+<h3>Notes</h3>
+<ul>
+<li><strong>Oven method:</strong> Bake at 375°F for 45 minutes, then broil 3-4 minutes to caramelize</li>
+<li><strong>Don\'t skip the rest:</strong> It lets juices redistribute</li>
+</ul>
+'
+),
+
+array(
+    'title' => 'Saimin – Hawaii\'s Local Noodle Soup',
+    'slug' => 'saimin-recipe',
+    'meta_description' => 'Saimin is Hawaii\'s beloved noodle soup – a unique local creation with egg noodles in dashi broth topped with Spam, eggs, and green onions.',
+    'categories' => array($cat_ids['island-comfort'], $cat_ids['recipes']),
+    'tags' => array('soup', 'noodles', 'comfort food', 'local food', 'quick dinner'),
+    'content' => '
+<p>Saimin is proof that Hawaii creates its own food culture.</p>
+
+<p>It\'s not Japanese ramen. It\'s not Chinese noodle soup. It\'s not Filipino, Korean, or Portuguese. It\'s all of them – and none of them. Saimin is purely, uniquely Hawaiian.</p>
+
+<h2>Born on the Plantation</h2>
+
+<p>Saimin emerged from Hawaii\'s sugar plantation camps, where workers from Japan, China, the Philippines, Korea, and Portugal all lived and worked together. They shared food, shared techniques, and created something new.</p>
+
+<p>The result: chewy egg noodles in a shrimp-and-dashi broth, topped with whatever you\'ve got – char siu, Spam, fish cake, eggs, nori.</p>
+
+<h2>What Makes Saimin Unique</h2>
+
+<ul>
+<li><strong>The noodles</strong> – Thinner and chewier than ramen, made with eggs</li>
+<li><strong>The broth</strong> – Dashi-based (kelp and bonito), lighter than ramen</li>
+<li><strong>The toppings</strong> – An eclectic mix reflecting Hawaii\'s cultures</li>
+</ul>
+
+<p>McDonald\'s in Hawaii serves saimin. So does Zippy\'s, the local diner chain. It\'s that embedded in local culture.</p>
+
+<h2>Saimin – Hawaii-Style Noodle Soup</h2>
+
+<p><strong>Hawaii\'s beloved noodle soup – a melting pot in a bowl. Springy egg noodles in savory dashi broth with classic local toppings.</strong></p>
+
+<p><strong>Prep Time:</strong> 20 minutes | <strong>Cook Time:</strong> 20 minutes | <strong>Servings:</strong> 4</p>
+
+<h3>Ingredients</h3>
+
+<p><strong>For the Broth:</strong></p>
+<ul>
+<li>8 cups water</li>
+<li>2 packets dashi powder (like Hon-Dashi)</li>
+<li>¼ cup soy sauce</li>
+<li>1 tablespoon mirin</li>
+<li>½ teaspoon sugar</li>
+<li>½ teaspoon salt</li>
+<li>4 dried shrimp (optional, for depth)</li>
+</ul>
+
+<p><strong>For the Noodles:</strong></p>
+<ul>
+<li>12 oz fresh saimin noodles or thin egg noodles</li>
+</ul>
+
+<p><strong>For the Toppings:</strong></p>
+<ul>
+<li>4 slices Spam, fried until crispy</li>
+<li>4 slices char siu (Chinese BBQ pork)</li>
+<li>4 slices kamaboko (fish cake)</li>
+<li>2 eggs, beaten and cooked into a thin omelet, sliced</li>
+<li>4 green onions, sliced</li>
+<li>Nori strips</li>
+</ul>
+
+<h3>Instructions</h3>
+<ol>
+<li><strong>Make the broth:</strong> Bring water to a boil. Add dashi powder, soy sauce, mirin, sugar, salt, and dried shrimp. Simmer 10 minutes. Taste and adjust seasoning. Keep warm.</li>
+<li><strong>Prep the toppings:</strong> Fry Spam slices until crispy. Make a thin omelet with beaten eggs and slice into strips. Slice char siu and kamaboko.</li>
+<li><strong>Cook the noodles:</strong> Bring a separate pot of water to boil. Cook noodles according to package directions (usually 2-3 minutes). Drain well.</li>
+<li><strong>Assemble:</strong> Divide noodles among four bowls. Ladle hot broth over noodles. Arrange toppings on top – Spam, char siu, kamaboko, egg strips.</li>
+<li><strong>Finish:</strong> Scatter green onions and nori strips over each bowl.</li>
+</ol>
+
+<p><strong>Serve immediately</strong> with hot sauce on the side if you like heat.</p>
+
+<h3>Notes</h3>
+<ul>
+<li><strong>Finding saimin noodles:</strong> Look in Asian grocery stores. Substitute fresh ramen or thin egg noodles.</li>
+<li><strong>Quick version:</strong> Use store-bought dashi broth or even chicken broth with a splash of soy sauce</li>
+<li><strong>Fried saimin:</strong> Stir-fry the noodles with the toppings instead of serving in soup</li>
+</ul>
+'
+),
+
+array(
+    'title' => 'Malasadas – Hawaiian Portuguese Donuts',
+    'slug' => 'malasadas-recipe',
+    'meta_description' => 'Malasadas are Hawaii\'s favorite donuts – pillowy Portuguese fried dough rolled in sugar. Learn to make Leonard\'s Bakery-style malasadas at home.',
+    'categories' => array($cat_ids['tropical-treats'], $cat_ids['recipes']),
+    'tags' => array('dessert', 'donuts', 'portuguese', 'baking', 'breakfast'),
+    'content' => '
+<p>The line at Leonard\'s Bakery in Honolulu starts forming before they open. Tourists and locals alike, all waiting for the same thing: malasadas fresh from the fryer.</p>
+
+<p>These pillowy, sugar-coated Portuguese donuts are a Hawaii obsession. No hole in the middle. No glaze. Just perfectly fried dough, rolled in sugar while still hot, eaten immediately.</p>
+
+<h2>The Portuguese Connection</h2>
+
+<p>Portuguese immigrants brought malasadas to Hawaii in the late 1800s. Traditionally, they\'re made for Mardi Gras (called "Malasada Day" in Hawaii) to use up lard and sugar before Lent.</p>
+
+<p>Leonard Rego opened Leonard\'s Bakery in 1952, and malasadas became a year-round Hawaii institution.</p>
+
+<h2>What Makes Them Special</h2>
+
+<ul>
+<li><strong>No hole</strong> – Unlike American donuts, malasadas are solid</li>
+<li><strong>Eggy dough</strong> – Rich with eggs and butter</li>
+<li><strong>Light and airy</strong> – The inside is almost custard-like when fresh</li>
+<li><strong>Simple coating</strong> – Just granulated sugar</li>
+</ul>
+
+<h2>Malasadas – Portuguese Donuts</h2>
+
+<p><strong>Pillowy, eggy, fried-to-perfection Portuguese donuts rolled in sugar. These are best eaten warm, straight from the fryer.</strong></p>
+
+<p><strong>Prep Time:</strong> 30 minutes | <strong>Rising:</strong> 2 hours | <strong>Cook Time:</strong> 20 minutes | <strong>Servings:</strong> 24 malasadas</p>
+
+<h3>Ingredients</h3>
+
+<p><strong>For the Dough:</strong></p>
+<ul>
+<li>1 packet (2¼ tsp) active dry yeast</li>
+<li>1 teaspoon sugar (for activating yeast)</li>
+<li>¼ cup warm water (110°F)</li>
+<li>1 cup whole milk, warm</li>
+<li>½ cup (1 stick) butter, melted and cooled</li>
+<li>½ cup sugar</li>
+<li>6 large eggs</li>
+<li>4½ cups all-purpose flour</li>
+<li>1 teaspoon salt</li>
+</ul>
+
+<p><strong>For Frying and Coating:</strong></p>
+<ul>
+<li>Vegetable oil, for frying (about 6 cups)</li>
+<li>1½ cups granulated sugar, for rolling</li>
+</ul>
+
+<h3>Instructions</h3>
+<ol>
+<li><strong>Activate yeast:</strong> Combine warm water, 1 teaspoon sugar, and yeast. Let sit 5-10 minutes until foamy.</li>
+<li><strong>Make the dough:</strong> In a large bowl, whisk together warm milk, melted butter, ½ cup sugar, and eggs. Add yeast mixture. Stir to combine.</li>
+<li><strong>Add flour:</strong> Mix in flour and salt until a sticky dough forms. It will be very soft and sticky – that\'s correct.</li>
+<li><strong>First rise:</strong> Cover bowl with plastic wrap. Let rise in a warm place 1½-2 hours until doubled.</li>
+<li><strong>Heat oil:</strong> Pour oil into a large heavy pot or Dutch oven. Heat to 350°F. Set up a wire rack over a sheet pan. Put sugar in a shallow bowl.</li>
+<li><strong>Shape and fry:</strong> With oiled hands, pull off golf ball-sized pieces of dough. Gently stretch into a rough oval shape. Carefully lower into hot oil. Fry 3-4 at a time, flipping once, until golden brown on both sides (about 2-3 minutes total).</li>
+<li><strong>Drain and coat:</strong> Remove with a slotted spoon. Drain briefly on wire rack, then immediately roll in sugar to coat all sides.</li>
+<li><strong>Serve immediately</strong> – malasadas are best within minutes of frying.</li>
+</ol>
+
+<h3>Notes</h3>
+<ul>
+<li><strong>Filled malasadas:</strong> Use a piping bag to inject custard, chocolate, or haupia filling</li>
+<li><strong>Cinnamon sugar:</strong> Mix 1 tablespoon cinnamon into the coating sugar</li>
+<li><strong>Oil temperature:</strong> Too hot and they burn outside while raw inside. Too cool and they absorb oil.</li>
+</ul>
+'
+),
+
+array(
+    'title' => 'Shoyu Chicken – Local Hawaiian Braised Chicken',
+    'slug' => 'shoyu-chicken-recipe',
+    'meta_description' => 'Shoyu chicken is Hawaii\'s simple, delicious braised chicken in soy sauce and ginger. A local plate lunch staple that\'s easy to make at home.',
+    'categories' => array($cat_ids['island-comfort'], $cat_ids['recipes']),
+    'tags' => array('chicken', 'comfort food', 'local food', 'main dish', 'easy dinner'),
+    'content' => '
+<p>Every plate lunch spot in Hawaii has shoyu chicken on the menu. It\'s the reliable choice, the one you order when you can\'t decide, the dish that always delivers.</p>
+
+<p>Shoyu chicken is comfort food at its most basic: chicken braised in soy sauce with ginger and garlic until the meat is falling off the bone and the sauce is glossy and rich.</p>
+
+<h2>The Beauty of Simple</h2>
+
+<p>This isn\'t a complicated recipe. That\'s the point. Working families in Hawaii have been making shoyu chicken forever because:</p>
+<ul>
+<li>It\'s cheap</li>
+<li>It\'s easy</li>
+<li>It feeds a crowd</li>
+<li>It tastes incredible over rice</li>
+</ul>
+
+<h2>The Key Ingredients</h2>
+
+<p>You probably have everything already:</p>
+<ul>
+<li><strong>Soy sauce (shoyu)</strong> – The base of everything</li>
+<li><strong>Sugar</strong> – Balances the salt, creates glaze</li>
+<li><strong>Ginger and garlic</strong> – The aromatics</li>
+<li><strong>Chicken</strong> – Bone-in, skin-on for best flavor</li>
+</ul>
+
+<h2>Shoyu Chicken</h2>
+
+<p><strong>Tender chicken braised in a sweet and savory soy sauce glaze with ginger and garlic. This local Hawaiian comfort food is perfect over hot rice.</strong></p>
+
+<p><strong>Prep Time:</strong> 10 minutes | <strong>Cook Time:</strong> 45 minutes | <strong>Servings:</strong> 6</p>
+
+<h3>Ingredients</h3>
+<ul>
+<li>3 lbs bone-in, skin-on chicken thighs (about 6-8 pieces)</li>
+<li>1 tablespoon vegetable oil</li>
+<li>1 cup soy sauce</li>
+<li>1 cup water</li>
+<li>¾ cup brown sugar, packed</li>
+<li>2-inch piece fresh ginger, sliced into coins</li>
+<li>6 cloves garlic, smashed</li>
+<li>3 green onions, cut into 2-inch pieces (white and green parts separated)</li>
+<li>1 star anise (optional)</li>
+</ul>
+
+<p><strong>For Serving:</strong></p>
+<ul>
+<li>Cooked white rice</li>
+<li>Sliced green onions</li>
+</ul>
+
+<h3>Instructions</h3>
+<ol>
+<li><strong>Brown the chicken:</strong> Heat oil in a large skillet or Dutch oven over medium-high heat. Add chicken, skin-side down. Cook 4-5 minutes until skin is golden brown. Flip and brown the other side. Remove and set aside.</li>
+<li><strong>Make the sauce:</strong> In the same pan, combine soy sauce, water, brown sugar, ginger, garlic, white parts of green onions, and star anise. Bring to a simmer, stirring to dissolve sugar.</li>
+<li><strong>Braise:</strong> Return chicken to pan, skin-side up. Reduce heat to medium-low. Cover and simmer 30-35 minutes until chicken is cooked through and tender.</li>
+<li><strong>Reduce the sauce:</strong> Remove chicken to a plate. Increase heat and simmer sauce 5-10 minutes until slightly thickened and glossy.</li>
+<li><strong>Finish:</strong> Return chicken to sauce. Add green parts of green onions. Spoon sauce over chicken to glaze.</li>
+</ol>
+
+<p><strong>Serve</strong> over hot white rice with extra sauce spooned on top. Garnish with sliced green onions.</p>
+
+<h3>Notes</h3>
+<ul>
+<li><strong>Make ahead:</strong> Even better the next day. Reheat gently.</li>
+<li><strong>Slow cooker:</strong> Combine all ingredients except oil. Cook on low 6-8 hours. Crisp skin under broiler if desired.</li>
+<li><strong>Plate lunch style:</strong> Serve with mac salad and two scoops rice</li>
+</ul>
+'
+),
+
 ); // End $posts array
 
 // ============================================
